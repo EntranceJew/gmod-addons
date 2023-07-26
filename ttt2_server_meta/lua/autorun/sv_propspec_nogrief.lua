@@ -118,6 +118,10 @@ hook.Add( "Initialize", "PropSpecNoGrief_Initialize", function()
                 end
 
                 if timer.Exists(timer_name) then
+                    print("EJEW: did not attempt to create timer, timer already existed: " .. timer_name)
+                end
+
+                if (not timer.Exists(timer_name)) and (junk ~= nil) then
                     timer.Create(timer_name, 1, 0, function() ResolidifyWhenClear(ent) end)
                 end
             end
