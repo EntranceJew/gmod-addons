@@ -111,11 +111,14 @@ hook.Add( "Initialize", "PropSpecNoGrief_Initialize", function()
             local ent = (ply.propspec and ply.propspec.ent) or ply:GetObserverTarget()
             if IsValid(ent) then
                 local junk = JUNKDEX[ ent:EntIndex() ]
+                local timer_name = "resolidify_" .. ent:EntIndex()
 
-                if junk ~= nil then
-                    timer.Create( "resolidify_" .. ent:EntIndex(), 1, 0, function() ResolidifyWhenClear(ent) end)
-                else
+                if junk == nil then
                     print("EJEW: did not attempt to resolidfy target lacking JUNK")
+                end
+
+                if timer.Exists(timer_name) then
+                    timer.Create(timer_name, 1, 0, function() ResolidifyWhenClear(ent) end)
                 end
             end
             _propspec_clear(ply)
