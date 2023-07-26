@@ -6,6 +6,8 @@ if not SERVER then return end
 --     if bit.band(mask, CONTENTS_GRATE) != 0 then return true end
 -- end
 
+local JUNKDEX = {}
+
 local GenerateDesiredJUNK = function(junk)
     local color_changed = Color( junk.color.r, junk.color.g, junk.color.b, 128 )
     return {
@@ -55,18 +57,18 @@ local ApplyJUNK = function(ent, junk)
 end
 
 local Resolidify = function(ent)
-    local junk = ent:GetVar("_propspec_nogrief_previous_info")
+    local junk = JUNKDEX[ ent:EntIndex() ]
 
     if junk ~= nil then
         ApplyJUNK(ent, junk)
-    -- else
-        -- print("EJEW: [ERROR] resolidify failed, no JUNK")
+    else
+        print("EJEW: [ERROR] resolidify failed, no JUNK")
     end
 end
 
 local ResolidifyWhenClear = function(ent)
     if IsValid(ent) then
-        local junk = ent:GetVar("_propspec_nogrief_previous_info")
+        local junk = JUNKDEX[ ent:EntIndex() ]
         local trace = {
             start = ent:GetPos(),
             endpos = ent:GetPos(),
@@ -76,8 +78,8 @@ local ResolidifyWhenClear = function(ent)
         }
         local tr = util.TraceEntity(trace, ent)
         if tr.Hit then
-            -- print("EJEW: did not restore [" .. tostring(ent) .. "] due to collision with [" .. tostring(tr.Entity) .. "]")
-        -- else
+            print("EJEW: did not restore [" .. tostring(ent) .. "] due to collision with [" .. tostring(tr.Entity) .. "]")
+        else
             Resolidify(ent)
             timer.Remove( tostring(ent) .. "_resolidify" )
         end
@@ -86,14 +88,15 @@ end
 
 hook.Add( "Initialize", "PropSpecNoGrief_Initialize", function()
     if GAMEMODE_NAME == "terrortown" and SERVER then
+        JUNKDEX = {}
         local _propspec_start = PROPSPEC.Start
         PROPSPEC.Start = function(ply, ent)
 
             -- only capture the collision group one time if we can help it
-            local junk = ent:GetVar("_propspec_nogrief_previous_junk")
-            if junk == nil then
+            local junk = JUNKDEX[ ent:EntIndex() ]
+            if JUNKDEX[ ent:EntIndex() ] == nil then
                 junk = CaptureJUNK(ent)
-                ent:SetVar("_propspec_nogrief_previous_junk", junk)
+                JUNKDEX[ ent:EntIndex() ] = junk
             end
 
             local new_junk = GenerateDesiredJUNK(junk)
@@ -106,12 +109,12 @@ hook.Add( "Initialize", "PropSpecNoGrief_Initialize", function()
         PROPSPEC.Clear = function(ply)
             local ent = (ply.propspec and ply.propspec.ent) or ply:GetObserverTarget()
             if IsValid(ent) then
-                local junk = ent:GetVar("_propspec_nogrief_previous_info")
+                local junk = JUNKDEX[ ent:EntIndex() ]
 
                 if junk ~= nil then
-                    timer.Create( tostring(ent) .. "_resolidify", 1, 0, function() ResolidifyWhenClear(ent) end)
-                -- else
-                    -- print("EJEW: did not attempt to resolidfy target lacking JUNK")
+                    timer.Create( "resolidify_" .. ent:EntIndex(), 1, 0, function() ResolidifyWhenClear(ent) end)
+                else
+                    print("EJEW: did not attempt to resolidfy target lacking JUNK")
                 end
             end
             _propspec_clear(ply)
