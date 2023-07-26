@@ -7,6 +7,7 @@ if not SERVER then return end
 -- end
 
 local JUNKDEX = {}
+local POSSESSORS = {}
 
 local GenerateDesiredJUNK = function(junk)
     local color_changed = Color( junk.color.r, junk.color.g, junk.color.b, 128 )
@@ -62,6 +63,7 @@ local Resolidify = function(ent)
     if junk ~= nil then
         ApplyJUNK(ent, junk)
         JUNKDEX[ ent:EntIndex() ] = nil
+        POSSESSORS[ ent:EntIndex() ] = nil
     else
         print("EJEW: [ERROR] resolidify failed, no JUNK")
     end
@@ -69,6 +71,10 @@ end
 
 local ResolidifyWhenClear = function(ent)
     if IsValid(ent) then
+        if POSSESSORS[ ent:EntIndex() ] ~= nil then
+            print("EJEW: did not restore [" .. ent:EntIndex() .. "] due to existing possessor")
+            return
+        end
         local junk = JUNKDEX[ ent:EntIndex() ]
         local trace = {
             start = ent:GetPos(),
@@ -90,8 +96,10 @@ end
 hook.Add( "Initialize", "PropSpecNoGrief_Initialize", function()
     if GAMEMODE_NAME == "terrortown" and SERVER then
         JUNKDEX = {}
+        POSSESSORS = {}
         local _propspec_start = PROPSPEC.Start
         PROPSPEC.Start = function(ply, ent)
+            POSSESSORS[ ent:EntIndex() ] = ply:EntIndex()
 
             -- only capture the collision group one time if we can help it
             local junk = JUNKDEX[ ent:EntIndex() ]
