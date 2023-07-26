@@ -120,6 +120,7 @@ hook.Add( "Initialize", "PropSpecNoGrief_Initialize", function()
             if IsValid(ent) then
                 local junk = JUNKDEX[ ent:EntIndex() ]
                 local timer_name = "resolidify_" .. ent:EntIndex()
+                POSSESSORS[ ent:EntIndex() ] = nil
 
                 if junk == nil then
                     print("EJEW: did not attempt to resolidfy target lacking JUNK")
