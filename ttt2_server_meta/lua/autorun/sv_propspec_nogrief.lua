@@ -78,10 +78,10 @@ local ResolidifyWhenClear = function(ent)
         }
         local tr = util.TraceEntity(trace, ent)
         if tr.Hit then
-            print("EJEW: did not restore [" .. tostring(ent) .. "] due to collision with [" .. tostring(tr.Entity) .. "]")
+            print("EJEW: did not restore [" .. ent:EntIndex() .. "] due to collision with [" .. ent:EntIndex() .. "]")
         else
             Resolidify(ent)
-            timer.Remove( tostring(ent) .. "_resolidify" )
+            timer.Remove( "resolidify_" .. ent:EntIndex() )
         end
     end
 end
