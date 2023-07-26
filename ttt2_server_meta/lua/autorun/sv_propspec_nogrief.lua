@@ -61,6 +61,7 @@ local Resolidify = function(ent)
 
     if junk ~= nil then
         ApplyJUNK(ent, junk)
+        JUNKDEX[ ent:EntIndex() ] = nil
     else
         print("EJEW: [ERROR] resolidify failed, no JUNK")
     end
