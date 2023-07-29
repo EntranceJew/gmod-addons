@@ -1,0 +1,6 @@
+VertexlitGeneric
+{
+	$basetexture models/purple_rupee/purple_rupee.vtf
+	$surfaceprop glassbottle
+	$model 1
+}

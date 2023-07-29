@@ -1,0 +1,10 @@
+{
+  "title": "Lots of Currency",
+  "type": "effects",
+  "tags": [
+    "fun"
+  ],
+  "ignore": [
+    "**/retired_entities/*"
+  ]
+}
