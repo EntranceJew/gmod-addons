@@ -1,2 +1,2 @@
-# gmod-addons-ttt2
-addons that are for TTT2
+# gmod-addons
+addons that are
