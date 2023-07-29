@@ -1,0 +1,482 @@
+unarmed = {
+      holdType = "normal",
+      viewModel = defaultViewModel,
+      fov = 54,
+      invisible = true,
+      crosshair = false,
+      PrimaryAttack = nop,
+      SecondaryAttack = nop,
+      Deploy = function()
+        local speed = GetConVarNumber( "sv_defaultdeployspeed" )
+
+        local vm = self.Owner:GetViewModel()
+        -- was originally "fists_draw", but now it is "fists_down" because we put them away immediately
+        vm:SendViewModelMatchingSequence( vm:LookupSequence( "fists_down" ) )
+        vm:SetPlaybackRate( speed )
+
+        self:SetNextPrimaryFire( CurTime() + vm:SequenceDuration() / speed )
+        self:SetNextSecondaryFire( CurTime() + vm:SequenceDuration() / speed )
+        self:UpdateNextIdle()
+
+        if ( SERVER ) then
+          self:SetCombo( 0 )
+        end
+
+        return true
+      end
+    },
+    handlooker = {
+      holdType = "normal",
+      -- viewModel = "models/weapons/c_handlooker.mdl",
+      fov = 90,
+      invisible = false,
+      crosshair = true,
+      PrimaryAttack = function()
+        self:PlayAnimation("seq_admire")
+      end,
+      SecondaryAttack = function()
+        self:PlayAnimation("seq_admire_bms_old")
+      end,
+      Think = function()
+        local vm = self.Owner:GetViewModel()
+        if self:GetNextIdle() ~= 0 and self:GetNextIdle() < CurTime() then
+          vm:SendViewModelMatchingSequence( vm:LookupSequence( "reference" ) )
+          self:SetNextIdle( 0 )
+        end
+      end,
+    },
+    pocket = {
+      name = "pocket",
+      holdType = "normal",
+      fov = 62,
+      invisible = true,
+      crosshair = true,
+      PrimaryAttack = function()
+        self:SetNextPrimaryFire(CurTime() + 0.2)
+
+        if not SERVER then return end
+
+        local Owner = self:GetOwner()
+
+        if not IsValid(Owner) then return end
+
+        local ent = Owner:GetEyeTrace().Entity
+        local canPickup, message = hook.Call("canPocket", GAMEMODE, Owner, ent)
+
+        if not canPickup then
+            if message then DarkRP.notify(Owner, 1, 4, message) end
+            return
+        end
+
+        Owner:addPocketItem(ent)
+      end,
+      SecondaryAttack = function()
+        if CLIENT then 
+          DarkRP.openPocketMenu() 
+        end
+
+        if SERVER then
+            umsg.Start("PocketMenuAH", self:GetOwner())
+            umsg.End()
+        end
+        
+        -- instead of treating the inventory like a stack (below) just open the menu (above)
+        --[[
+        if not SERVER then return end
+
+        local Owner = self:GetOwner()
+
+        if not IsValid(Owner) then return end
+
+        local maxK = 0
+
+        for k in pairs(Owner:getPocketItems()) do
+            if k < maxK then continue end
+            maxK = k
+        end
+
+        if maxK == 0 then
+            DarkRP.notify(Owner, 1, 4, DarkRP.getPhrase("pocket_no_items"))
+            return
+        end
+
+        if SERVER then
+            local canPickup, message = hook.Call("canDropPocketItem", nil, Owner, maxK, Owner.darkRPPocket[maxK])
+            if canPickup == false then
+                if message then DarkRP.notify(Owner, 1, 4, message) end
+                return
+            end
+        end
+
+        Owner:dropPocketItem(maxK)
+      end,
+    keys = {
+      name = "keys",
+      holdType = "normal",
+      -- viewModel = "models/weapons/c_keys.mdl",
+      fov = 70,
+      invisible = false,
+      crosshair = true,
+      --[[
+      Deploy = function()
+        local vm = self.Owner:GetViewModel()
+        vm:SendViewModelMatchingSequence( vm:LookupSequence( "draw" ) )
+        self:Idle(false)
+        return true
+      end,
+      ]]
+      PrimaryAttack = function()
+        local Owner = self:GetOwner()
+
+        if not IsValid(Owner) then return end
+        local trace = Owner:GetEyeTrace()
+
+        if not lookingAtLockable(Owner, trace.Entity, trace.HitPos) then return end
+
+        self:SetNextPrimaryFire(CurTime() + 0.3)
+
+        --[[
+        local vm = self.Owner:GetViewModel()
+        vm:SendViewModelMatchingSequence( vm:LookupSequence( "idle01" ) )
+        
+        vm:SetPlaybackRate(lockSpeed)
+        vm:SendViewModelMatchingSequence( vm:LookupSequence( "unlock" ) )
+        self:SetNextPrimaryFire( CurTime() + vm:SequenceDuration( ) )
+        self:SetNextSecondaryFire( CurTime() + vm:SequenceDuration( ) )
+        self:Idle(false)
+        ]]
+
+        --[[
+        if slib then
+          if trace.Entity:slibDoorIsLocked() then
+            vm:SendViewModelMatchingSequence( vm:LookupSequence( "lock" ) )
+          else
+            vm:SendViewModelMatchingSequence( vm:LookupSequence( "unlock" ) )
+          end
+          self:SetNextPrimaryFire( CurTime() + vm:SequenceDuration( ) )
+          self:Idle(false)
+        end
+        ]]
+        
+        -- self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+
+        if CLIENT then return end
+        
+        if trace.Entity:isLocked() then
+          --AHDebugPrint(Owner, "attempting unlock...")
+          if Owner:canKeysUnlock(trace.Entity) then
+            trace.Entity:keysUnLock() -- Unlock the door immediately so it won't annoy people
+            unlockAnimation(self, "doors/door_latch3.wav")
+            
+            --local vm = Owner:GetViewModel()
+            --vm:SendViewModelMatchingSequence( vm:LookupSequence( "idle01" ) )
+            self:PlayAnimation("keys_unlock")
+            
+            --vm:SetPlaybackRate(lockSpeed)
+            --vm:SendViewModelMatchingSequence( vm:LookupSequence( "unlock" ) )
+            self:SetNextPrimaryFire( CurTime() + Owner:GetViewModel():SequenceDuration( ) )
+            self:SetNextSecondaryFire( CurTime() + Owner:GetViewModel():SequenceDuration( ) )
+            --self:Idle(false)
+          elseif trace.Entity:IsVehicle() then
+            DarkRP.notify(Owner, 1, 3, DarkRP.getPhrase("do_not_own_ent"))
+          else
+            doKnock(self, "physics/wood/wood_crate_impact_hard3.wav")
+          end
+        else
+          --AHDebugPrint(Owner, "attempting lock...")
+          if Owner:canKeysLock(trace.Entity) then
+            trace.Entity:keysLock() -- Lock the door immediately so it won't annoy people
+            lockAnimation(self, "doors/door_latch2.wav")
+            
+            --local vm = Owner:GetViewModel()
+            --vm:SendViewModelMatchingSequence( vm:LookupSequence( "idle01" ) )
+            self:PlayAnimation("keys_lock")
+            
+            --vm:SetPlaybackRate(lockSpeed)
+            --vm:SendViewModelMatchingSequence( vm:LookupSequence( "lock" ) )
+            self:SetNextPrimaryFire( CurTime() + Owner:GetViewModel():SequenceDuration( ) )
+            self:SetNextSecondaryFire( CurTime() + Owner:GetViewModel():SequenceDuration( ) )
+            --self:Idle(false)
+          elseif trace.Entity:IsVehicle() then
+            DarkRP.notify(Owner, 1, 3, DarkRP.getPhrase("do_not_own_ent"))
+          else
+            doKnock(self, "physics/wood/wood_crate_impact_hard2.wav")
+          end
+        end
+      end,
+      SecondaryAttack = function()
+        local trace = self:GetOwner():GetEyeTrace()
+        if not IsValid(trace.Entity) or ((not trace.Entity:isDoor() and not trace.Entity:IsVehicle()) or self:GetOwner():EyePos():DistToSqr(trace.HitPos) > 40000) then
+            if CLIENT and not DarkRP.disabledDefaults["modules"]["animations"] then RunConsoleCommand("_DarkRP_AnimationMenu") end
+            return
+        end
+        if SERVER then
+            umsg.Start("KeysMenuAH", self:GetOwner())
+            umsg.End()
+        end
+      end,
+      SwitchTo = function()
+        local vm = self.Owner:GetViewModel()
+        vm:SendViewModelMatchingSequence( vm:LookupSequence( "keys_idle01" ) )
+        
+        vm:SendViewModelMatchingSequence( vm:LookupSequence( "keys_draw" ) )
+        self:SetHoldType("normal")
+        
+        local AnimationTime = self.Owner:GetViewModel():SequenceDuration()
+        --self.ReloadingTime = CurTime() + AnimationTime
+        self:SetNextPrimaryFire(CurTime() + AnimationTime)
+        self:SetNextSecondaryFire(CurTime() + AnimationTime)
+        self:UpdateNextIdle()
+
+        self.FistsOut = !self.FistsOut
+        self:FistsDown()
+      end,
+      SwitchAway = function()
+        local vm = self.Owner:GetViewModel()
+        vm:SendViewModelMatchingSequence( vm:LookupSequence( "keys_holster" ) )
+        timer.Simple( vm:SequenceDuration() / 1.5, function() 
+          self:SetHoldType("normal")
+        end )
+      
+        local AnimationTime = self.Owner:GetViewModel():SequenceDuration()
+        self.ReloadingTime = CurTime() + AnimationTime
+        self:SetNextPrimaryFire(CurTime() + AnimationTime)
+        self:SetNextSecondaryFire(CurTime() + AnimationTime)
+        self:UpdateNextIdle()
+
+        self.FistsOut = !self.FistsOut
+        self:FistsDown()
+      end,
+      SwitchTo2 = function()
+        local vm = self.Owner:GetViewModel()
+        vm:SendViewModelMatchingSequence( vm:LookupSequence( "keys_draw" ) )
+        self:Idle(false)
+        return true
+      end
+    },
+    drag = {
+      PrimaryAttack = function()
+        local Pos = self.Owner:GetShootPos()
+        local Aim = self.Owner:GetAimVector()
+
+        local Tr = util.TraceLine{
+          start = Pos,
+          endpos = Pos +Aim *self.DragRange,
+          filter = player.GetAll(),
+        }
+
+        local HitEnt = Tr.Entity
+        if self.Drag then
+          HitEnt = self.Drag.Entity
+        else
+          if not IsValid( HitEnt ) or HitEnt:GetMoveType() ~= MOVETYPE_VPHYSICS or
+            HitEnt:IsVehicle() or HitEnt:GetNWBool( "NoDrag", false ) or
+            HitEnt.BlockDrag or
+            IsValid( HitEnt:GetParent() ) then
+              self:PlayAnimation("seq_admire_bms_old")
+            return
+          end
+
+          if not self.Drag then
+            self.Drag = {
+              OffPos = HitEnt:WorldToLocal(Tr.HitPos),
+              Entity = HitEnt,
+              Fraction = Tr.Fraction,
+            }
+          end
+        end
+
+        if CLIENT or not IsValid( HitEnt ) then return end
+
+        local Phys = HitEnt:GetPhysicsObject()
+
+        if IsValid( Phys ) then
+          local Pos2 = Pos +Aim *self.DragRange *self.Drag.Fraction
+          local OffPos = HitEnt:LocalToWorld( self.Drag.OffPos )
+          local Dif = Pos2 -OffPos
+          local Nom = (Dif:GetNormal() *math.min(1, Dif:Length() /100) *500 -Phys:GetVelocity()) *Phys:GetMass()
+
+          Phys:ApplyForceOffset( Nom, OffPos )
+          Phys:AddAngleVelocity( -Phys:GetAngleVelocity() /4 )
+        end
+      end,
+      Think = function()
+        if self.Drag and (not self.Owner:KeyDown(IN_ATTACK) or not IsValid(self.Drag.Entity)) then
+          self.Drag = nil
+        end
+      end
+    },
+    draglooker = {
+      name = "draglooker",
+      holdType = "normal",
+      -- viewModel = "models/weapons/c_awesomehands.mdl",
+      fov = 90,
+      invisible = false,
+      crosshair = true,
+      PrimaryAttack = function()
+        local Pos = self.Owner:GetShootPos()
+        local Aim = self.Owner:GetAimVector()
+
+        local Tr = util.TraceLine{
+          start = Pos,
+          endpos = Pos +Aim *self.DragRange,
+          filter = player.GetAll(),
+        }
+
+        local HitEnt = Tr.Entity
+        if self.Drag then
+          HitEnt = self.Drag.Entity
+        else
+          if not IsValid( HitEnt ) or HitEnt:GetMoveType() ~= MOVETYPE_VPHYSICS or
+            HitEnt:IsVehicle() or HitEnt:GetNWBool( "NoDrag", false ) or
+            HitEnt.BlockDrag or
+            IsValid( HitEnt:GetParent() ) then
+              self:PlayAnimation("seq_admire")
+            return
+          end
+
+          if not self.Drag then
+            self.Drag = {
+              OffPos = HitEnt:WorldToLocal(Tr.HitPos),
+              Entity = HitEnt,
+              Fraction = Tr.Fraction,
+            }
+          end
+        end
+
+        if CLIENT or not IsValid( HitEnt ) then return end
+
+        local Phys = HitEnt:GetPhysicsObject()
+
+        if IsValid( Phys ) then
+          local Pos2 = Pos +Aim *self.DragRange *self.Drag.Fraction
+          local OffPos = HitEnt:LocalToWorld( self.Drag.OffPos )
+          local Dif = Pos2 -OffPos
+          local Nom = (Dif:GetNormal() *math.min(1, Dif:Length() /100) *500 -Phys:GetVelocity()) *Phys:GetMass()
+
+          Phys:ApplyForceOffset( Nom, OffPos )
+          Phys:AddAngleVelocity( -Phys:GetAngleVelocity() /4 )
+        end
+      end,
+      SecondaryAttack = function()
+        self:PlayAnimation("bms_admire_old")
+      end,
+      Think = function()
+        if self.Drag and (not self.Owner:KeyDown(IN_ATTACK) or not IsValid(self.Drag.Entity)) then
+          self.Drag = nil
+        end
+
+        local vm = self.Owner:GetViewModel()
+        if self:GetNextIdle() ~= 0 and self:GetNextIdle() < CurTime() then
+          vm:SendViewModelMatchingSequence( vm:LookupSequence( "reference" ) )
+          self:SetNextIdle( 0 )
+        end
+      end
+    },
+    slappers = {
+      fov = 62,
+      invisible = true,
+      crosshair = false,
+    },
+    draglookerpocket = {
+      name = "draglookerpocket",
+      holdType = "normal",
+      -- viewModel = "models/weapons/c_awesomehands.mdl",
+      fov = 90,
+      invisible = false,
+      crosshair = true,
+      PrimaryAttack = function()
+        local Pos = self.Owner:GetShootPos()
+        local Aim = self.Owner:GetAimVector()
+
+        local Tr = util.TraceLine{
+          start = Pos,
+          endpos = Pos +Aim *self.DragRange,
+          filter = player.GetAll(),
+        }
+
+        local HitEnt = Tr.Entity
+        if self.Drag then
+          HitEnt = self.Drag.Entity
+        else
+          if not IsValid( HitEnt ) or HitEnt:GetMoveType() ~= MOVETYPE_VPHYSICS or
+            HitEnt:IsVehicle() or HitEnt:GetNWBool( "NoDrag", false ) or
+            HitEnt.BlockDrag or
+            IsValid( HitEnt:GetParent() ) then
+            
+            if math.random(0, 1) == 0 then 
+              self:PlayAnimation("bms_admire_old")
+            else
+              self:PlayAnimation("seq_admire")
+            end
+            return
+          end
+
+          if not self.Drag then
+            self.Drag = {
+              OffPos = HitEnt:WorldToLocal(Tr.HitPos),
+              Entity = HitEnt,
+              Fraction = Tr.Fraction,
+            }
+          end
+        end
+
+        if CLIENT or not IsValid( HitEnt ) then return end
+
+        local Phys = HitEnt:GetPhysicsObject()
+
+        if IsValid( Phys ) then
+          local Pos2 = Pos +Aim *self.DragRange *self.Drag.Fraction
+          local OffPos = HitEnt:LocalToWorld( self.Drag.OffPos )
+          local Dif = Pos2 -OffPos
+          local Nom = (Dif:GetNormal() *math.min(1, Dif:Length() /100) *500 -Phys:GetVelocity()) *Phys:GetMass()
+
+          Phys:ApplyForceOffset( Nom, OffPos )
+          Phys:AddAngleVelocity( -Phys:GetAngleVelocity() /4 )
+        end
+      end,
+      SecondaryAttack = function()
+        self:SetNextSecondaryFire(CurTime() + 0.3)
+
+        -- if not SERVER then return end
+
+        local Owner = self:GetOwner()
+        if not IsValid(Owner) then return end
+        local ent = Owner:GetEyeTrace().Entity
+        local canPickup, message = hook.Call("canPocket", GAMEMODE, Owner, ent)
+
+        if not canPickup then
+            print("can't pick up")
+            if message then
+                print("i have a message about it")
+                DarkRP.notify(Owner, 1, 4, message)
+            else
+                if CLIENT then
+                    print("client says open your menu")
+                    --DarkRP.openPocketMenu() 
+                end
+
+                if SERVER then
+                    print("telling the server to open the menu")
+                    umsg.Start("PocketMenuAH", self:GetOwner())
+                    umsg.End()
+                end
+            end
+            return
+        else
+            print("put it in my pocket")
+            Owner:addPocketItem(ent)
+        end
+      end,
+      Think = function()
+        if self.Drag and (not self.Owner:KeyDown(IN_ATTACK) or not IsValid(self.Drag.Entity)) then
+          self.Drag = nil
+        end
+
+        local vm = self.Owner:GetViewModel()
+        if self:GetNextIdle() ~= 0 and self:GetNextIdle() < CurTime() then
+          vm:SendViewModelMatchingSequence( vm:LookupSequence( "reference" ) )
+          self:SetNextIdle( 0 )
+        end
+      end
+    },

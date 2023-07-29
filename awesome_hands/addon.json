@@ -1,0 +1,14 @@
+{
+	"title": "Awesome Hands",
+	"type": "weapon",
+	"tags": 
+	[
+		"roleplay",
+		"realism"
+	],
+  "ignore": 
+	[
+		".vs/*",
+		"*.ignore"
+	]
+}

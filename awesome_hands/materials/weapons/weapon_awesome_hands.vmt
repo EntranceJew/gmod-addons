@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+	"$basetexture" "weapons/weapon_awesome_hands"
+	"$ignorez"     "1"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$nolod"       "1"
+}

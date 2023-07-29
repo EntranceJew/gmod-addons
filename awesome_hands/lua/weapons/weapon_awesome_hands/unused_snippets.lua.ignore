@@ -1,0 +1,148 @@
+-- @TODO: re_hands context propmt
+/*
+  CreateClientConVar( "emptyhands_showcrosshair", "1", false, false )
+
+  if CLIENT then
+    local x, y = ScrW() /2, ScrH() /2
+    local MainCol = Color( 255, 255, 255, 255 )
+    local Col = Color( 255, 255, 255, 255 )
+
+    function SWEP:DrawHUD()
+      if IsValid( self:GetOwner():GetVehicle() ) then return end
+      local Pos = self:GetOwner():GetShootPos()
+      local Aim = self:GetOwner():GetAimVector()
+
+      local Tr = util.TraceLine{
+        start = Pos,
+        endpos = Pos +Aim *self.Range,
+        filter = player.GetAll(),
+      }
+
+      local HitEnt = Tr.Entity
+      if IsValid( HitEnt ) and HitEnt:GetMoveType() == MOVETYPE_VPHYSICS and
+        not self.rDag and
+        not HitEnt:IsVehicle() and
+        not IsValid( HitEnt:GetParent() ) and
+        not HitEnt:GetNWBool( "NoDrag", false ) then
+
+        self.Time = math.min( 1, self.Time +2 *FrameTime() )
+      else
+        self.Time = math.max( 0, self.Time -2 *FrameTime() )
+      end
+
+      if self.Time > 0 then
+        Col.a = MainCol.a *self.Time
+
+        draw.SimpleText(
+          "Drag",
+          "DermaLarge",
+          x,
+          y,
+          Col,
+          TEXT_ALIGN_CENTER
+        )
+      end
+
+      if self.Drag and IsValid( self.Drag.Entity ) then
+        local Pos2 = Pos +Aim *100 *self.Drag.Fraction
+        local OffPos = self.Drag.Entity:LocalToWorld( self.Drag.OffPos )
+        local Dif = Pos2 -OffPos
+
+        local A = OffPos:ToScreen()
+        local B = Pos2:ToScreen()
+
+        surface.DrawRect( A.x -2, A.y -2, 4, 4, MainCol )
+        surface.DrawRect( B.x -2, B.y -2, 4, 4, MainCol )
+        surface.DrawLine( A.x, A.y, B.x, B.y, MainCol )
+      end
+    end
+  end
+
+local function lookingAtLockable(ply, ent, hitpos)
+    local eyepos = ply:EyePos()
+
+    return IsValid(ent) and ent:isKeysOwnable() and (ent:isDoor() and eyepos:DistToSqr(hitpos) < 2000 or ent:IsVehicle() and eyepos:DistToSqr(hitpos) < 4000)
+end
+*/
+
+include("shared.lua")
+SWEP.righModel = ClientsideModel("models/props_c17/tools_wrench01a.mdl", RENDERGROUP_OPAQUE)
+SWEP.righModel:SetNoDraw( true )
+SWEP.righModel:SetModelScale(0.2, 0)
+SWEP.righModel:SetMaterial("lights/white")
+--SWEP.righModel:SetColor(Color(0,0,0,255))
+--SWEP.Owner=SWEP:GetOwner()
+SWEP.LastPos = Vector(0,0,0)
+SWEP.Posdiff = Vector(0,0,0)
+SWEP.LastPosSkull = Vector(0,0,0)
+SWEP.PosdiffSkull = Vector(0,0,0)
+
+if CLIENT then
+  function SWEP:ViewModelDrawn()
+    local vm = self:GetOwner():GetViewModel()
+    local bm = vm:GetBoneMatrix(0)
+    local pos =  bm:GetTranslation()
+    local ang =  bm:GetAngles()	
+    
+    
+    --Drawing original model
+    local normal = Vector(1,0,0)
+    local origin = Vector(0,0,0)
+    local distance = normal:Dot( origin )
+
+    local oldEnableClipping = render.EnableClipping( true )
+    render.PushCustomClipPlane( normal, distance )
+    self:DrawModel()
+    render.PopCustomClipPlane()
+    render.EnableClipping( oldEnableClipping )
+
+    if self.skullModel and self:GetOwner() and self:GetOwner() != NULL then
+      bm = vm:GetBoneMatrix(vm:LookupBone("Bip01_L_Finger3"))
+      pos =  bm:GetTranslation()
+      ang =  bm:GetAngles()
+
+      self.Posdiff = self.Posdiff + (self.LastPos - pos)
+      self.Posdiff = self.Posdiff + Vector(0,0,-2)
+      self.LastPos = pos
+
+      self.Posdiff.x = math.Approach( self.Posdiff.x, 0, -self.Posdiff.x * FrameTime() * 10)
+      self.Posdiff.y = math.Approach( self.Posdiff.y, 0, -self.Posdiff.y * FrameTime() * 10)
+      self.Posdiff.z = math.Approach( self.Posdiff.z, 0, -self.Posdiff.z * FrameTime() * 10)
+
+      local movAng = self.Posdiff
+      movAng = movAng:Angle()
+
+      pos = pos + vm:GetUp() * 1 + vm:GetRight() * 4 + vm:GetForward() * 0.5
+      ang = movAng
+      ang:RotateAroundAxis(ang:Up(), -90)
+      ang.p = 0
+      pos = pos + movAng:Right() * -1.5
+
+      --Skull
+      local scullPos = Vector(0,0,0)
+      local scullAng = Angle(0,0,0)
+
+      scullPos = pos + movAng:Right() * -1.8
+
+      self.PosdiffSkull = self.PosdiffSkull + (self.LastPosSkull - scullPos) * 50
+      self.PosdiffSkull = self.PosdiffSkull + Vector(0,0,-2)
+      self.LastPosSkull = scullPos
+
+      self.PosdiffSkull.x = math.Approach( self.PosdiffSkull.x, 0, -self.PosdiffSkull.x * FrameTime() * 2)
+      self.PosdiffSkull.y = math.Approach( self.PosdiffSkull.y, 0, -self.PosdiffSkull.y * FrameTime() * 2)
+      self.PosdiffSkull.z = math.Approach( self.PosdiffSkull.z, 0, -self.PosdiffSkull.z * FrameTime() * 2)		
+      
+      movAng = self.PosdiffSkull
+      movAng = movAng:Angle()
+      scullAng = movAng
+
+      self.righModel:SetPos(pos)
+      self.righModel:SetAngles(ang)
+      self.righModel:DrawModel()
+
+      self.skullModel:SetPos(scullPos)
+      self.skullModel:SetAngles(scullAng)
+      self.skullModel:DrawModel()
+    end
+  end
+end
