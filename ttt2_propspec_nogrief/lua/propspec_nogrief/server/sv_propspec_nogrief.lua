@@ -14,7 +14,7 @@ PropSpec_NoGrief.CVARS = PropSpec_NoGrief.CVARS or {
 
     debug_print = CreateConVar(
         "sv_psng_debug_print",
-        "1",
+        "0",
         {FCVAR_NOTIFY, FCVAR_ARCHIVE, FCVAR_REPLICATED}
     ),
     think_interval = CreateConVar(
