@@ -1,0 +1,3 @@
+[submodule "TTT2"]
+	path = TTT2
+	url = git@github.com:EntranceJew/TTT2.git
