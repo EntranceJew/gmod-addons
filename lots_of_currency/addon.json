@@ -1,10 +1,22 @@
 {
   "title": "Lots of Currency",
-  "type": "effects",
+  "type": "entity",
   "tags": [
-    "fun"
+    "fun",
+    "roleplay"
   ],
   "ignore": [
-    "**/retired_entities/*"
+    "*.lua.ignore\u0000",
+    ".vs/*\u0000",
+    "**/retired_entities/*\u0000",
+    "**/backup_*\u0000",
+    "**/lennas_inception/*\u0000",
+    "backup/*\u0000",
+    "*.ps1\u0000",
+    "resource/localization/*.png\u0000",
+    "icon.png\u0000",
+    "**/deepl.lua\u0000",
+    "**/wario_world_coins.lua\u0000",
+    "**/lennas_inception.lua\u0000"
   ]
 }
