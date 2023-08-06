@@ -123,6 +123,12 @@ end
 
 --[[ asscheek ]]
 
+PropSpec_NoGrief.ClearAll = function()
+    local count = #PropSpec_NoGrief.PROPS
+    dprint("EJEW: clearing props [", count, "]")
+    PropSpec_NoGrief.PROPS = {}
+end
+
 PropSpec_NoGrief.IsPropClearFromEnts = function(ent)
     local ent_id = ent:EntIndex()
     local p_data = PropSpec_NoGrief.PROPS[ ent_id ]
@@ -247,7 +253,7 @@ PropSpec_NoGrief.SlowThink = function()
             continue
         end
         if can_resolidify and ent_meta.possessor ~= nil then
-            -- not orphaned  yet, no work to do
+            -- not orphaned yet, no work to do
             dprint("EJEW:", ent, "aborting, still possessed")
             can_resolidify = false
         end
@@ -257,7 +263,7 @@ PropSpec_NoGrief.SlowThink = function()
             if ent_meta.possessor then
                 dprint("EJEW:", ent, "aborting, within range of player; also ejecting")
                 local ply = Entity( ent_meta.possessor )
-                if IsValid(ply) and ply:IsPlayer() then
+                if IsValid(ply) and ply:IsPlayer() and not ply:Alive() then
                     PROPSPEC.End(ply)
                 end
             else
@@ -353,6 +359,13 @@ PropSpec_NoGrief.Initialize = function()
         )
     end
 end
+
+hook.Remove("TTTEndRound", "PropSpec_NoGrief_ClearAll")
+hook.Remove("TTTPrepareRound", "PropSpec_NoGrief_ClearAll")
+hook.Remove("TTTBeginRound", "PropSpec_NoGrief_ClearAll")
+hook.Add("TTTEndRound", "PropSpec_NoGrief_ClearAll", PropSpec_NoGrief.ClearAll)
+hook.Add("TTTPrepareRound", "PropSpec_NoGrief_ClearAll", PropSpec_NoGrief.ClearAll)
+hook.Add("TTTBeginRound", "PropSpec_NoGrief_ClearAll", PropSpec_NoGrief.ClearAll)
 
 hook.Remove("Initialize", "PropSpec_NoGrief_Initialize")
 hook.Add( "Initialize", "PropSpec_NoGrief_Initialize", PropSpec_NoGrief.Initialize)
