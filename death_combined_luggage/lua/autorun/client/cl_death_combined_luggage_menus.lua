@@ -65,6 +65,7 @@ end
 hook.Add( "PopulateToolMenu", cv.meta.title .. "_CustomMenuSettings", function()
   for tm = 1, #cv.toolmenus do
     local tmenu = cv.toolmenus[tm]
+    -- print( tmenu.tab .. "/" .. tmenu.heading .. "/" .. cv.meta.title .. "_" .. tmenu.heading .. "Options" )
     spawnmenu.AddToolMenuOption(
         tmenu.tab,
         tmenu.heading,

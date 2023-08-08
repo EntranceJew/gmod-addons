@@ -142,12 +142,13 @@ if SERVER then
   end
 
   function ENT:StartTouch(v)
-    print("touched a thing", ent:GetClass())
-    PrintTable(baseclass.Get(ent:GetClass()))
+    if !IsValid(v) then return end
+    print("touched a thing", v:GetClass())
+    PrintTable(baseclass.Get(v:GetClass()))
     if (v:IsPlayer() and v:Alive()) or (v:IsNPC() and v:Health() > 0) then
       dprint(v, "picked up a backpack!")
       local initRemoved = DeathCombinedLuggage.ComputeScore(self.Data)
-      /*local removed =*/ DeathCombinedLuggage.Deserialize(self.Data, v, true)
+      --[[local removed =]] DeathCombinedLuggage.Deserialize(self.Data, v, true)
       local removed = DeathCombinedLuggage.ComputeScore(self.Data)
 
       if removed < initRemoved and removed > 0 then

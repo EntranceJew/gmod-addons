@@ -1,14 +1,12 @@
 {
-	"title": "Awesome Hands",
-	"type": "weapon",
-	"tags": 
-	[
-		"roleplay",
-		"realism"
-	],
-  "ignore": 
-	[
-		".vs/*",
-		"*.ignore"
-	]
+  "title": "Awesome Hands",
+  "type": "weapon",
+  "tags": [
+    "roleplay",
+    "realism"
+  ],
+  "ignore": [
+    "*.lua.ignore\u0000",
+    ".vs/*\u0000"
+  ]
 }
