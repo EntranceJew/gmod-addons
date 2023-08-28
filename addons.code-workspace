@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../_playpin"
+		},
+		{
+			"path": "../_art_assets"
 		}
 	],
 	"settings": {
