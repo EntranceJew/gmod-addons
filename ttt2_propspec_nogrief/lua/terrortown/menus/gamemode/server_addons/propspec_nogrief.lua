@@ -1,8 +1,6 @@
 CLGAMEMODESUBMENU.base = "base_gamemodesubmenu"
 CLGAMEMODESUBMENU.title = "propspec_nogrief_addon_info"
 
--- include("propspec_nogrief/client/cl_propspec_nogrief_menu.lua")
-
 function CLGAMEMODESUBMENU:Populate(parent)
     local possession = vgui.CreateTTT2Form(parent, "propspec_nogrief_settings_possession")
     possession:MakeHelp({
