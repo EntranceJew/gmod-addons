@@ -1,3 +1,15 @@
 [submodule "TTT2"]
 	path = TTT2
 	url = git@github.com:EntranceJew/TTT2.git
+[submodule "ttt2-wep_defi"]
+	path = ttt2-wep_defi
+	url = git@github.com:EntranceJew/ttt2-wep_defi.git
+[submodule "ttt2-octagonal-hud"]
+	path = ttt2-octagonal-hud
+	url = git@github.com:EntranceJew/ttt2-octagonal-hud.git
+[submodule "ttt2-ulx"]
+	path = ttt2-ulx
+	url = git@github.com:EntranceJew/ttt2-ulx.git
+[submodule "ttt2-pointer"]
+	path = ttt2-pointer
+	url = git@github.com:EntranceJew/ttt2-pointer.git

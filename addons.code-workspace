@@ -1,0 +1,94 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../../../../steamapps/common/GarrysMod/garrysmod/cfg"
+		},
+		{
+			"path": "../_playpin"
+		}
+	],
+	"settings": {
+		"files.trimTrailingWhitespace": true,
+		"glualint.activeLanguages": [
+			"glua",
+			"lua"
+		],
+		"commentAnchors.tags.anchors": {
+
+			"ANCHOR": {
+				"iconColor": "default",
+				"highlightColor": "#A8C023",
+				"scope": "file"
+			},
+			"TODO": {
+				"iconColor": "blue",
+				"highlightColor": "#3ea8ff",
+				"scope": "workspace"
+			},
+			"@TODO": {
+				"iconColor": "blue",
+				"highlightColor": "#3ea8ff",
+				"scope": "workspace"
+			},
+			"FIXME": {
+				"iconColor": "red",
+				"highlightColor": "#F44336",
+				"scope": "workspace"
+			},
+			"STUB": {
+				"iconColor": "purple",
+				"highlightColor": "#BA68C8",
+				"scope": "file"
+			},
+			"NOTE": {
+				"iconColor": "orange",
+				"highlightColor": "#FFB300",
+				"scope": "file"
+			},
+			"REVIEW": {
+				"iconColor": "green",
+				"highlightColor": "#64DD17",
+				"scope": "workspace"
+			},
+			"SECTION": {
+				"iconColor": "blurple",
+				"highlightColor": "#896afc",
+				"scope": "workspace",
+				"behavior": "region"
+			},
+			"LINK": {
+				"iconColor": "#2ecc71",
+				"highlightColor": "#2ecc71",
+				"scope": "workspace",
+				"behavior": "link"
+			}
+		},
+		"sqltools.connections": [
+			{
+				"previewLimit": 50,
+				"driver": "SQLite",
+				"database": "C:\\Program Files (x86)\\Steam\\steamcmd\\steamapps\\common\\GarrysModDS\\garrysmod\\sv.db",
+				"name": "EJ_TEST_TTT2_64/sv.db"
+			}
+		],
+		"sqltools.autoConnectTo": "EJ_TEST_TTT2_64/sv.db",
+		"sqltools.disableNodeDetectNotifications": true,
+		"Lua.codeLens.enable": true,
+		"Lua.semantic.keyword": false,
+		"Lua.workspace.library": [
+			"C:\\Program Files (x86)\\Steam\\steamcmd\\steamapps\\common\\GarrysModDS\\garrysmod\\lua"
+		],
+		"Lua.runtime.nonstandardSymbol": [
+			"continue",
+			"//",
+			"/**/",
+			"!",
+			"!=",
+			"&&",
+			"||",
+		]
+	}
+}

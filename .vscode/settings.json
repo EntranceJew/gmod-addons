@@ -1,0 +1,19 @@
+{
+  "files.exclude": {
+    "glib": true,
+    "gooey": true,
+    "gcompute": true,
+    "gcodec": true,
+    "vfs": true,
+    "FProfiler": true,
+    "NikNaks": true
+  },
+  "Lua.workspace.library": [
+    "C:/Users/ej/AppData/Roaming/Code/User/globalStorage/sumneko.lua/addonManager/addons/garrysmod/module/library"
+  ],
+  "Lua.workspace.checkThirdParty": false,
+  "Lua.diagnostics.globals": [
+    "continue",
+    "COLOR_WHITE"
+  ]
+}
