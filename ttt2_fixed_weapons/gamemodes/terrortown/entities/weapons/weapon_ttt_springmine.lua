@@ -38,8 +38,8 @@ SWEP.Secondary.Ammo     = "none"
 SWEP.Secondary.Delay = 1.0
 
 SWEP.Kind = WEAPON_EQUIP
-SWEP.CanBuy = {ROLE_TRAITOR} 
-SWEP.LimitedStock = true 
+SWEP.CanBuy = {ROLE_TRAITOR}
+SWEP.LimitedStock = true
 SWEP.WeaponID = AMMO_JUMPMINE
 
 SWEP.AllowDrop = false
@@ -47,18 +47,18 @@ SWEP.AllowDrop = false
 SWEP.NoSights = true
 
 function SWEP:PrimaryAttack()
-   self.Weapon:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
+   self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
    self:MineDrop()
 end
 function SWEP:SecondaryAttack()
-   self.Weapon:SetNextSecondaryFire( CurTime() + self.Secondary.Delay )
+   self:SetNextSecondaryFire( CurTime() + self.Secondary.Delay )
    self:MineDrop()
 end
 
 local throwsound = Sound( "Weapon_SLAM.SatchelThrow" )
 function SWEP:MineDrop()
    if SERVER then
-      local ply = self.Owner
+      local ply = self:GetOwner()
       if not IsValid(ply) then return end
 
       if self.Planted then return end
@@ -66,7 +66,7 @@ function SWEP:MineDrop()
       local vsrc = ply:GetShootPos()
       local vang = ply:GetAimVector()
       local vvel = ply:GetVelocity()
-      
+
       local vthrow = vvel + vang * 200
 
       local mine = ents.Create("ttt_spring_mine")
@@ -80,14 +80,14 @@ function SWEP:MineDrop()
          local phys = mine:GetPhysicsObject()
          if IsValid(phys) then
             phys:SetVelocity(vthrow)
-         end   
+         end
          self:Remove()
 
          self.Planted = true
       end
    end
 
-   self.Weapon:EmitSound(throwsound)
+   self:EmitSound(throwsound)
 end
 
 
@@ -96,14 +96,14 @@ function SWEP:Reload()
 end
 
 function SWEP:OnRemove()
-   if CLIENT and IsValid(self.Owner) and self.Owner == LocalPlayer() and self.Owner:Alive() then
+   if CLIENT and IsValid(self:GetOwner()) and self:GetOwner() == LocalPlayer() and self:GetOwner():Alive() then
       RunConsoleCommand("lastinv")
    end
 end
 
 if CLIENT then
    function SWEP:Initialize()
-      LANG.AddToLanguage("english", "springmine_help", "Press {primaryfire} to deploy the Spring Mine.")
+      LANG.AddToLanguage("en", "springmine_help", "Press {primaryfire} to deploy the Spring Mine.")
       self:AddHUDHelp("springmine_help", nil, true)
 
       return self.BaseClass.Initialize(self)
@@ -111,8 +111,8 @@ if CLIENT then
 end
 
 function SWEP:Deploy()
-   if SERVER and IsValid(self.Owner) then
-      self.Owner:DrawViewModel(false)
+   if SERVER and IsValid(self:GetOwner()) then
+      self:GetOwner():DrawViewModel(false)
    end
    return true
 end
