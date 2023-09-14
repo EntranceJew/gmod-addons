@@ -14,6 +14,29 @@
   "Lua.workspace.checkThirdParty": false,
   "Lua.diagnostics.globals": [
     "continue",
-    "COLOR_WHITE"
+    "COLOR_WHITE",
+    "ROLE_COLLUSIONIST",
+    "TEAM_TRAITOR",
+    "ROLE_JESTER",
+    "TEAM_JESTER",
+    "ROLE_TRAITOR",
+    "TEAM_INNOCENT",
+    "ROLE_INNOCENT",
+    "TEAM_JACKAL",
+    "SIDEKICK",
+    "ROLE_SIDEKICK",
+    "ROLE_JACKAL",
+    "TEAM_DOPPELGANGER",
+    "ROLE_SWAPPER",
+    "TEAM_COLLUSIONIST",
+    "SHOP_DISABLED",
+    "ROLE_DETECTIVE",
+    "SendFullStateUpdate",
+    "roles",
+    "LANG",
+    "ROUND_ACTIVE",
+    "ULib",
+    "ulx",
+    "INFECTEDS"
   ]
 }

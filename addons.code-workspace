@@ -11,6 +11,10 @@
 		},
 		{
 			"path": "../_art_assets"
+		},
+		{
+			"path": "../_outdev"
+		},
 		}
 	],
 	"settings": {
@@ -92,6 +96,9 @@
 			"!=",
 			"&&",
 			"||",
+		],
+		"cSpell.words": [
+			"Collusionist"
 		]
 	}
 }

@@ -1,6 +1,10 @@
 # TODO
 
-## Release Randomseed Ban
+## Collusionist
+
+- add event from [jester code](https://github.com/TTT-2/ttt2-role_jes/blob/master/lua/terrortown/events/jester_kill.lua)
+
+## Release randomseed Ban
 
 - <https://steamcommunity.com/sharedfiles/filedetails/?id=2146015503>
 

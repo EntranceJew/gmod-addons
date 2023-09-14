@@ -13,3 +13,6 @@
 [submodule "ttt2-pointer"]
 	path = ttt2-pointer
 	url = git@github.com:EntranceJew/ttt2-pointer.git
+[submodule "ttt_portal_gun"]
+	path = ttt_portal_gun
+	url = git@github.com:EntranceJew/ttt_portal_gun.git
