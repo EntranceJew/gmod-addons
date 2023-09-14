@@ -1,4 +1,4 @@
-L = LANG.GetLanguageTableReference("english")
+L = LANG.GetLanguageTableReference("en")
 
 L["propspec_nogrief_addon_info"] = "PropSpec NoGrief"
 
