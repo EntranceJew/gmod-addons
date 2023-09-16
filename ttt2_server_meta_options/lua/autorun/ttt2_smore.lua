@@ -37,9 +37,8 @@ TTT2SMORE.file_table = {
 	{name = "features/sh_tinnitus_disable.lua", scope = SCOPE_SHARED},
 	{name = "features/sh_voice_max_distance.lua", scope = SCOPE_SHARED},
 
-	-- {name = "mechanics/sh_door_haste_open.lua", scope = SCOPE_SHARED},
+	{name = "mechanics/sh_bot_options.lua", scope = SCOPE_SHARED},
 	{name = "mechanics/sh_door_stealth_and_haste_open.lua", scope = SCOPE_SHARED},
-	-- {name = "mechanics/sh_door_stealth_open.lua", scope = SCOPE_SHARED},
 
 	{name = "roles/sh_infected.lua", scope = SCOPE_SHARED},
 	{name = "roles/sh_swapper.lua", scope = SCOPE_SHARED},

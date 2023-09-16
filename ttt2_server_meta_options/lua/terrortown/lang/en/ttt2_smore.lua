@@ -32,7 +32,6 @@ Separate each item with "|"
 
 List of valid teams are: {teams}]]
 
-
 L["label_ttt2_sv_smore_voice_max_distance_enable"] = "Voice Max Distance Enable"
 L["help_ttt2_sv_smore_voice_max_distance_enable"] = "Allow capping the max range the player can hear voice from, hard cutoff without attenuation.\nPrevents disorienting moments where proximity voices may be heard from the map origin."
 L["label_ttt2_sv_smore_voice_max_distance_range"] = "Voice Max Distance Range"
@@ -53,7 +52,6 @@ L["help_ttt2_sv_smore_kill_extra_hooks"] = [[Forcibly removes hooks that are und
 - Detective Playermodel
   It's recommended to use SMORE's built-in Sub-Role Model override if you're still using an addon that sets this.
 ]]
-
 
 -- Server Addons > SMORE > Mechanic: Door Stealth/Haste Open
 L["smore_settings_mechanic_door_stealth_and_haste_open"] = "Mechanic: Door Stealth/Haste Open"
@@ -82,6 +80,17 @@ L["help_ttt2_sv_smore_door_haste_open_volume_modifier"] = "The loudness that a h
 L["label_ttt2_sv_smore_door_haste_open_reset_hesitation"] = "Reset Hesitation"
 L["help_ttt2_sv_smore_door_haste_open_reset_hesitation"] = "The factor of how long to wait before a hastily opened door will reset itself, taken against the distance it travels to open."
 
+-- Server Addons > SMORE > Mechanic: Bot Options
+L["smore_settings_mechanic_bot_options"] = "Mechanic: Bot Options"
+
+L["label_ttt2_sv_smore_prevent_bot_roles"] = "Prevent Bot Roles"
+L["help_ttt2_sv_smore_prevent_bot_roles"] = "When bot players are active, roles will randomly be removed from them and distributed to human players."
+L["label_ttt2_sv_smore_bot_quota"] = "Bot Quota"
+L["help_ttt2_sv_smore_bot_quota"] = "The number of bots the server should add to achieve a minimum playercount.\nThis is useful to test certain playercount breakpoints with roles."
+L["label_ttt2_sv_smore_bot_pickup_nearby_range"] = "Pickup Nearby Range"
+L["help_ttt2_sv_smore_bot_pickup_nearby_range"] = "When a bot is within this range of an item, they will pick it up.\n0 = Disabled"
+L["label_ttt2_sv_smore_bot_spawn_command"] = "Spawn Command"
+L["help_ttt2_sv_smore_bot_spawn_command"] = "The command to use to spawn bots, if there are fewer than you'd like."
 
 -- Edit Equipment > * > Additional Equipment Settings
 
@@ -129,8 +138,10 @@ L["help_ttt2_sv_smore_all_role_sub_role_model"] = "The model that this role shou
 L["label_ttt2_sv_smore_all_role_prohibit_revive"] = "Prohibit Revive"
 L["help_ttt2_sv_smore_all_role_prohibit_revive"] = "Roles with this enabled will not be allowed to be defibrillated."
 
-L["label_ttt2_sv_smore_all_role_prevent_friendly_fire"] = "Prevent Friendly Fire"
-L["help_ttt2_sv_smore_all_role_prevent_friendly_fire"] = "Prevents the role from doing damage to other players with the exact same role."
+L["label_ttt2_sv_smore_all_role_prevent_same_team_damage"] = "Prevent Damaging Team"
+L["help_ttt2_sv_smore_all_role_prevent_same_team_damage"] = "Prevents the role from doing damage to other roles in the same team.\nThis does not prevent the other role from damaging this one, unless it also has this option checked."
+L["label_ttt2_sv_smore_all_role_prevent_same_subrole_damage"] = "Prevent Damaging SubRole"
+L["help_ttt2_sv_smore_all_role_prevent_same_subrole_damage"] = "Prevents the role from doing damage to other players with the exact same role."
 
 L["label_ttt2_sv_smore_all_role_extra_credits_min_players"] = "Extra Credits Minimum Players"
 L["help_ttt2_sv_smore_all_role_extra_credits_min_players"] = "The minimum amount of players required for extra credits to be distributed based on player count."
