@@ -95,6 +95,11 @@ if SERVER then
 			feat.CheckIfQuotaMet()
 		end
 	end)
+	TTT2SMORE.HookAdd("PlayerDisconnected","bot_quota",function(ply)
+		if ply:IsPlayer() and not ply:IsBot() then
+			feat.CheckIfQuotaMet()
+		end
+	end)
 end
 
 TTT2SMORE.HookAdd("SMORECreateConVars", "prevent_bot_roles", function()
@@ -108,7 +113,7 @@ TTT2SMORE.HookAdd("SMOREServerAddonSettings", "prevent_bot_roles", function(pare
 	local bot_options = vgui.CreateTTT2Form(parent, "smore_settings_mechanic_bot_options")
 
 	TTT2SMORE.MakeElement(bot_options, "prevent_bot_roles", "MakeCheckBox")
-	TTT2SMORE.MakeElement(bot_options, "bot_quota", "MakeSlider", {max = game.MaxPlayers() - 1, decimal = 0})
+	TTT2SMORE.MakeElement(bot_options, "bot_quota", "MakeSlider", {max = game.MaxPlayers(), decimal = 0})
 	TTT2SMORE.MakeElement(bot_options, "bot_pickup_nearby_range", "MakeSlider", {max = 250, decimal = 0})
 	TTT2SMORE.MakeElement(bot_options, "bot_spawn_command", "MakeTextEntry")
 end)

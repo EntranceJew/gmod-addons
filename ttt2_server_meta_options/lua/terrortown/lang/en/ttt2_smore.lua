@@ -143,6 +143,15 @@ L["help_ttt2_sv_smore_all_role_prevent_same_team_damage"] = "Prevents the role f
 L["label_ttt2_sv_smore_all_role_prevent_same_subrole_damage"] = "Prevent Damaging SubRole"
 L["help_ttt2_sv_smore_all_role_prevent_same_subrole_damage"] = "Prevents the role from doing damage to other players with the exact same role."
 
+L["label_ttt2_sv_smore_all_role_shop_editor_listening_enabled"] = "Shop Editor Listener Enable"
+L["help_ttt2_sv_smore_all_role_shop_editor_listening_enabled"] = "Allow this role to subscribe to all changes to the listed roles' shops when they are edited.\nConsider disabling this checkbox temporarily if you are going to completely undo your shops, then enabling after sorting out the basics."
+L["label_ttt2_sv_smore_all_role_shop_editor_listening_roles"] = "Shop Editor Listener"
+L["help_ttt2_sv_smore_all_role_shop_editor_listening_roles"] = [[A list of role names. When you change the shop of a listed role, this role will also be edited similarly. Adding, or removing will cause it to happen to this role as well.
+A good use for this would be linking the Defective shop to both the Traitor and Detective.
+Separate each item with "|"
+
+List of valid roles are: {roles}]]
+
 L["label_ttt2_sv_smore_all_role_extra_credits_min_players"] = "Extra Credits Minimum Players"
 L["help_ttt2_sv_smore_all_role_extra_credits_min_players"] = "The minimum amount of players required for extra credits to be distributed based on player count."
 

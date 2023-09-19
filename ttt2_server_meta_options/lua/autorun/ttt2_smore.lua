@@ -28,6 +28,7 @@ TTT2SMORE.file_table = {
 	{name = "features/all_role/sh_all_role_extra_credits.lua", scope = SCOPE_SHARED},
 	{name = "features/all_role/sh_all_role_loadout_editing.lua", scope = SCOPE_SHARED},
 	{name = "features/all_role/sh_all_role_prevent_friendly_fire.lua", scope = SCOPE_SHARED},
+	{name = "features/all_role/sh_all_role_shop_editor_listener.lua", scope = SCOPE_SHARED},
 	{name = "features/all_role/sh_all_role_sub_role_model.lua", scope = SCOPE_SHARED},
 
 	{name = "features/sh_extra_ammo.lua", scope = SCOPE_SHARED},
@@ -132,6 +133,8 @@ TTT2SMORE.Init = function()
 
 		TTT2SMORE.PatchRole(role)
 	end
+
+	hook.Run("SMOREPatchCoreTTT2")
 
 	TTT2SMORE.TTTLanguageChanged()
 end
