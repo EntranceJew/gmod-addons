@@ -16,8 +16,10 @@ feat.SetSubRoleModel = function(ply)
 		end
 		ply:SetSubRoleModel(mdl)
 	else
-		ply:SetSubRoleModel(nil)
+		print("HORSEDEBUG", ply, "role model was blanked", subrole)
+		ply:SetSubRoleModel(GAMEMODE.playermodel)
 	end
+	hook.Run("TTTPlayerSetColor", ply)
 end
 
 TTT2SMORE.HookAdd("TTT2OnRoleAddToSettingsMenu", "all_role_set_sub_role_model", function(role, parent)
