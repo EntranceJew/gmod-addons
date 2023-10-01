@@ -135,6 +135,9 @@ L["header_roles_smore_all_role_general"] = "SMORE: All Roles / General"
 L["label_ttt2_sv_smore_all_role_sub_role_model"] = "Sub-Role Model"
 L["help_ttt2_sv_smore_all_role_sub_role_model"] = "The model that this role should be forcibly assigned to all members of this role."
 
+L["label_ttt2_sv_smore_force_sub_role_model_reset"] = "Force Sub-Role Model Reset"
+L["help_ttt2_sv_smore_force_sub_role_model_reset"] = "Forcibly reset people that don't have a subrole model assigned to the one the round assigned to all players.\nPrevents players from having nil assigned, and thus keeping a previous round's model due to logic in SubRoleModel assignment.\nIf you use PointShop2, you probably want this disabled!"
+
 L["label_ttt2_sv_smore_all_role_prohibit_revive"] = "Prohibit Revive"
 L["help_ttt2_sv_smore_all_role_prohibit_revive"] = "Roles with this enabled will not be allowed to be defibrillated."
 
