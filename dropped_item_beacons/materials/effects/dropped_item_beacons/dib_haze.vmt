@@ -1,0 +1,33 @@
+"Sprite"
+{
+	$basetexture		"effects/dropped_item_beacons/dib_haze_baset"
+	$texture2			"effects/dropped_item_beacons/dib_haze_noise"
+
+	$spriterendermode 		5
+	$translucent		1
+
+	$additive			1
+
+	$fbtexture 		"_rt_FullFrameFB"
+	$blurtexture		"_rt_SmallHDR0"
+
+	$c0_x			2 	//engine bloomamount pass
+
+	$PIXSHADER		 "bloomadd_ps20"
+
+	"screenspace_general_dx8"
+	{
+		$PIXSHADER "bloomadd_ps11"
+	}
+
+	"Proxies"
+	{
+
+		"TextureScroll"
+		{
+			"texturescrollvar" "$basetexturetransform"
+			"texturescrollrate" 0.8
+			"texturescrollangle" 120
+		}
+	}
+}
