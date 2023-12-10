@@ -40,3 +40,7 @@ function ENT:Initialize()
   self:SetSolid(SOLID_NONE)
   self.PosGen = nil
 end
+
+function ENT:OnTakeDamage()
+  return 0
+end
