@@ -7,7 +7,7 @@ ENT.Type = "nextbot"
 function ENT:ChasePos()
   if self.PosGen == nil then return end
 
-  --if self.P == nil then 
+  --if self.P == nil then
     self.P = Path("Follow")
     self.P:SetMinLookAheadDistance(00)
     self.P:SetGoalTolerance(100)
@@ -25,10 +25,15 @@ end
 
 function ENT:RunBehaviour()
   while (true) do
+    if self.daddy == nil then
+      self:Remove()
+      return
+    end
+    -- self:SetPos(self.parent:GetPos())
     if self.PosGen then
       self:ChasePos()
     end
-		
+
   coroutine.yield()
   end
 end

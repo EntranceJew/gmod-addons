@@ -259,6 +259,7 @@ end
 function Meta:InitializeBot(profile)
 	local bot = self
 	local name = bot:Nick()
+	bot.SBAdvancedNextBot = true
 	bot.profile = profile -- the bot profile
 	bot.massinit = false -- a boolean determining whether or not the traitor bot is to go on a rampage
 	bot.personality = profile.personality -- the personality # from the bots profile
@@ -1632,9 +1633,14 @@ local function startcmd(bot,cmd)
 	--if gmod.GetGamemode().Name != "Trouble in Terrorist Town" then return end
 	if bot.nav:IsValid() == false then
 		bot.nav = ents.Create("ttt_bots_nextbot") -- create the nav
+		bot.nav.daddy = bot
+		bot:DeleteOnRemove(bot.nav)
+		bot.nav:SetMoveType(MOVETYPE_NONE)
+		bot.nav:SetParent(bot)
 		bot.nav:SetOwner(bot) -- set the owner so it doesnt collide
 		bot.nav:Spawn() -- spawn the nav into the world
 	end
+	bot.nav.daddy = bot
 	local role = bot:GetRoleString()
 	bot.armed = bot:isBotArmed()
 	if bot:Health() > 0 then
@@ -1846,6 +1852,10 @@ function Meta:GetInnoViewers()
 		end
 	end
 	return bots
+end
+
+function Meta:UniqueID()
+	return util.CRC( "gm_" .. self:SteamID64() .. "_gm" )
 end
 
 timer.Create("TTTDetectTraitorWeapons", 1, 0, function()
