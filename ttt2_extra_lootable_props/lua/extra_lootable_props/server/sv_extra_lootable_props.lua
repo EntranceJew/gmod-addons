@@ -44,9 +44,21 @@ ExtraLootableProps.SpawnItem = function(pos, broken_prop)
 		(not IsValid(broken_prop) or IsValid(broken_prop:GetPhysicsObject()) and
 		broken_prop:GetPhysicsObject():IsMotionEnabled()) then
 		if math.random(1, 100) <= ExtraLootableProps.CVARS.weapon_drop_chance:GetInt() then
-			entspawn.SpawnRandomWeapon(broken_prop)
+			if TTT2 then
+				entspawn.SpawnRandomWeapon(broken_prop)
+			else
+				local wep = ents.Create("ttt_random_weapon")
+				wep:SetPos(pos)
+				wep:Spawn()
+			end
 		else
-			entspawn.SpawnRandomAmmo(broken_prop)
+			if TTT2 then
+				entspawn.SpawnRandomAmmo(broken_prop)
+			else
+				local ammo = ents.Create("ttt_random_ammo")
+				ammo:SetPos(pos)
+				ammo:Spawn()
+			end
 		end
 	end
 end
@@ -84,4 +96,13 @@ hook.Add(
 	"PostInitPostEntity",
 	"ExtraLootableProps_Init",
 	ExtraLootableProps.Init
+)
+hook.Add(
+	"InitPostEntity",
+	"ExtraLootableProps_Init_TTT",
+	function()
+		if engine.ActiveGamemode() == "terrortown" and not TTT2 then
+			ExtraLootableProps.Init()
+		end
+	end
 )
