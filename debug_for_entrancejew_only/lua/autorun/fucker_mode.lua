@@ -1,0 +1,244 @@
+-- _G.bunk = false
+-- function GetAllMaps()
+-- 	local f = file.Find("maps/*.bsp", "GAME")
+-- 	local o = {}
+-- 	for _, f_ in ipairs(f) do
+-- 		table.insert(o, string.sub(f_, 0, string.len(f_) - 4))
+-- 	end
+-- 	return o
+-- end
+
+-- local legal_extensions = {
+-- 	"txt",
+-- 	"dat",
+-- 	"json",
+-- 	"xml",
+-- 	"csv",
+-- 	"jpg",
+-- 	"jpeg",
+-- 	"png",
+-- 	"vtf",
+-- 	"vmt",
+-- 	"mp3",
+-- 	"wav",
+-- 	"ogg",
+-- 	"vcd",
+-- 	"dem",
+-- }
+
+-- local kill_filters = {
+-- 	-- we actually want these gone
+-- 	"^_playpin/",
+-- 	"^addons/",
+-- 	"^downloadlists/%s%%.lst",
+-- 	"^materials/",
+
+-- 	-- out of this hole, satan
+-- 	"^materials/maps/",
+-- 	"^materials/models/%s/",
+-- 	"^materials/models/props/%s/",
+-- 	"^materials/overviews/%s",
+-- 	"^materials/skybox/%s",
+-- 	"^materials/spawnicons/models/props/%s/",
+-- 	"^materials/maps/%s/",
+-- 	"^materials/vgui/achievements/win_map_%s",
+-- 	"^materials/vgui/gfx/vgui/summary_maps/summary_%s",
+-- 	"^materials/vgui/maps/menu_thumb_%s",
+-- 	"^models/props/%s/",
+-- 	"^resource/overviews/%s%%.txt",
+-- 	"^resource/overviews/%s%%.txt",
+-- 	"^particles/%s%%.pcf",
+-- 	"^particles/maps/%s%%.pcf",
+-- 	-- we care about these but not as much
+-- 	"^maps/%s%%.bsp",
+-- }
+
+-- local keep_filters = {
+-- 	-- thes ones we're looking out for
+-- 	"cfg/mapcfgs/%s%%.cfg",
+-- 	"cfg/mapcfgs/%s%%.lua",
+-- 	"data/background_npcs/autotoggler/%s%%.json",
+-- 	"data/background_npcs/nodes/%s%%.dat",
+-- 	"data/background_npcs/seats/%s%%.dat",
+-- 	"data/citizens_points/%s%%.dat",
+-- 	"data/decentvehicle/%s%%.txt",
+-- 	"data/elevators/%s%%.txt",
+-- 	"data/gminimap/landmarks_%s%%.json",
+-- 	"data/mapret/%s/autoload/details%%.txt",
+-- 	"data/mapret/%s/autoload/displacements%%.txt",
+-- 	"data/mapret/%s/detected/details%%.txt",
+-- 	"data/mapret/%s/detected/displacements%%.txt",
+-- 	"data/mapicons/thumb/%s%%.png",
+-- 	"data/mapicons/thumb_copy/%s%%.png",
+-- 	"data/map_thumbnails/maps/thumb/%s%%.png",
+-- 	"data/mmm/maps/%s%%.txt",
+-- 	"data/terrortown/entityspawns/settings/%s%%.json",
+-- 	"data/terrortown/entityspawns/spawnpoints/%s%%.json",
+-- 	"data/mmm/maps/%s%%.txt",
+-- 	"data/stormfox2/streetlights/%s%%.json",
+-- 	"data/stormfox2/tex_settings/%s%%.txt",
+-- 	"lua/autorun/client/%s%%.lua",
+-- 	"maps/%s%%.ain",
+-- 	"maps/%s%%.nav",
+-- 	"maps/%s%%.png",
+-- 	"maps/%s%%.txt",
+-- 	"maps/graphs/%s%%.ain",
+-- 	"maps/soundcache/%s%%.cache",
+-- 	"maps/thumb/%s%%.png",
+-- }
+
+-- local remaps = {
+-- 	["maps/thumb/%s%%.png"] = {
+-- 		"data/map_thumbnails/maps/thumb/%s%%.png",
+-- 		"data/mapicons/thumb_copy/%s%%.png",
+-- 		"maps/%s%%.png",
+-- 		"maps/thumb/%s%%.png",
+-- 		"data/mapicons/thumb/%s%%.png",
+-- 	}
+-- }
+
+-- --[[
+-- function FindAllFilesLike(name, route, all_files, all_dirs)
+-- 	route = route or ""
+
+-- 	all_files = all_files or {}
+-- 	all_dirs = all_dirs or {}
+-- 	local test = route .. "*"
+-- 	--print("checking", test)
+-- 	local f, d = file.Find(test, "GAME")
+-- 	for _, _f in ipairs(f or {}) do
+-- 		local rel = route .. _f
+-- 		if string.match(rel, name .. "[./]") ~= nil then
+-- 			table.insert(all_files, rel)
+-- 		end
+-- 	end
+-- 	for _, _d in ipairs(d or {}) do
+-- 		local rel = route .. _d .. "/"
+-- 		FindAllFilesLike(name, rel, all_files, all_dirs)
+-- 	end
+-- 	return all_files, all_dirs
+-- end
+-- ]]
+
+-- function FindAllFiles(name, route, all_files, all_dirs, domain)
+-- 	route = route or ""
+
+-- 	all_files = all_files or {}
+-- 	all_dirs = all_dirs or {}
+-- 	local test = route .. "*"
+-- 	local f, d = file.Find(test, domain)
+-- 	for _, _f in ipairs(f or {}) do
+-- 		local rel = route .. _f
+-- 		table.insert(all_files, rel)
+-- 	end
+-- 	for _, _d in ipairs(d or {}) do
+-- 		local rel = route .. _d .. "/"
+-- 		FindAllFiles(name, rel, all_files, all_dirs, domain)
+-- 	end
+-- 	return all_files, all_dirs
+-- end
+
+-- function SplitPathFile(str)
+-- 	return string.match(str, "(.-)([^\\/]-%.?([^%.\\/]*))$")
+-- end
+
+-- function CopyFile(orig, dest)
+-- 	-- local p, f, ext = SplitPathFile(out)
+-- 	local out = dest
+-- 	local p, _, ext = SplitPathFile(dest)
+-- 	if not table.HasValue(legal_extensions, ext) then
+-- 		out = out .. ".please_replace_me.dat"
+-- 	end
+-- 	if (not file.Exists(p, "DATA")) then
+-- 		file.CreateDir(p)
+-- 	end
+-- 	print(orig, "\t", out)
+-- 	--[[
+-- 	file.Write(
+-- 		out,
+-- 		file.Read(orig, "GAME")
+-- 	)
+-- 	]]
+-- end
+
+-- function CopyAllExistingMapData(hooch)
+-- 	for map, files in pairs(hooch) do
+-- 		for _, the_file in ipairs(files) do
+-- 			local already_remapped = {}
+-- 			local file_dest = the_file
+-- 			local should = true
+-- 			if (not should) or already_remapped[the_file] then continue end
+-- 			local bail = false
+-- 			for remapped_format, remap_data in pairs(remaps) do
+-- 				local remapped_file = string.format(remapped_format, map):gsub("%%","%")
+-- 				local num_remaps = #remap_data
+-- 				for i = num_remaps, 1, -1 do
+-- 					local remap_dest_file = string.format(remap_data[ i ], map):gsub("%%","%")
+-- 					if string.match(the_file, remap_dest_file) ~= nil then
+-- 						already_remapped[remapped_file] = true
+-- 						file_dest = remapped_file
+-- 						if already_remapped[remapped_file] then break end
+-- 					end
+-- 				end
+-- 				if already_remapped[remapped_file] then break end
+-- 			end
+
+-- 			file_dest = "addon_map_spackle/" .. file_dest
+-- 			CopyFile(the_file, file_dest)
+-- 		end
+-- 	end
+-- end
+
+-- function GetFileRemap(map, the_file)
+-- 	for remapped_format, remap_data in pairs(remaps) do
+-- 		local remapped_file = string.format(remapped_format, map):gsub("%%","%")
+-- 		for _, remap_dest_format in ipairs(remap_data) do
+-- 			local remap_dest_file = string.format(remap_dest_format, map):gsub("%%","%")
+-- 			if string.match(the_file, remap_dest_file) ~= nil then
+-- 				return remapped_file
+-- 			end
+-- 		end
+-- 	end
+-- 	return the_file
+-- end
+
+-- function GetAllMapRelatedFiles()
+-- 	local hooch = {}
+
+-- 	local all_files, all_dirs = {}, {}
+-- 	FindAllFiles(nil, nil, all_files, all_dirs, "GAME")
+-- 	for _, map in pairs(GetAllMaps()) do
+-- 		local temp = {}
+-- 		local any = false
+-- 		for _, the_file in ipairs(all_files) do
+-- 			if string.match(the_file, map) ~= nil then
+-- 				local should = true
+-- 				for _, kill_filter in ipairs(kill_filters) do
+-- 					if string.match(the_file, string.format(kill_filter, map):gsub("%%","%")) ~= nil then
+-- 						should = false
+-- 						break
+-- 					end
+-- 				end
+-- 				if not should then continue end
+-- 				should = false
+-- 				for _, keep_filter in ipairs(keep_filters) do
+-- 					if string.match(the_file, string.format(keep_filter, map):gsub("%%","%")) ~= nil then
+-- 						should = true
+-- 						break
+-- 					end
+-- 				end
+-- 				if not should then continue end
+-- 				any = true
+-- 				table.insert(temp, the_file)
+-- 			end
+-- 		end
+-- 		if any then
+-- 			hooch[map] = temp
+-- 		end
+-- 	end
+-- 	return hooch
+-- end
+
+-- local hooch = GetAllMapRelatedFiles()
+-- --file.Write("all_map_files.json", util.TableToJSON(hooch, true))
+-- CopyAllExistingMapData(hooch)

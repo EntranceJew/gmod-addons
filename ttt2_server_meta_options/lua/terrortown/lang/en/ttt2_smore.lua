@@ -53,6 +53,9 @@ L["help_ttt2_sv_smore_kill_extra_hooks"] = [[Forcibly removes hooks that are und
   It's recommended to use SMORE's built-in Sub-Role Model override if you're still using an addon that sets this.
 ]]
 
+L["label_ttt2_sv_smore_map_compat_neotokyo_enable"] = "Map Compat: Neotokyo"
+L["help_ttt2_sv_smore_map_compat_neotokyo_enable"] = [[Creates dummy entities for Neotokyo maps and registers the spawn points for players and weapons.]]
+
 -- Server Addons > SMORE > Mechanic: Door Stealth/Haste Open
 L["smore_settings_mechanic_door_stealth_and_haste_open"] = "Mechanic: Door Stealth/Haste Open"
 

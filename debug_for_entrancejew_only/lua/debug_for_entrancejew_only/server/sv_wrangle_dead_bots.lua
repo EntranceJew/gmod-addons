@@ -1,0 +1,9 @@
+-- hook.Add( "Think", "WrangleDeadBots", function()
+-- 	for _, bot in ipairs(player.GetAll()) do
+-- 		if bot:IsBot() and bot:IsSpec() then
+-- 			local pos = bot:GetPos()
+-- 			pos.z = 0
+-- 			bot:SetPos(pos)
+-- 		end
+-- 	end
+-- end )

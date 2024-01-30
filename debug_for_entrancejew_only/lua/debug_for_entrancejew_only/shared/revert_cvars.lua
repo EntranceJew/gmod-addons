@@ -26,3 +26,20 @@ concommand.Add(
     nil, -- @TODO: cannot get a list of all existant cvars easily
     "Revert one or more ConVars to their respective default values."
 )
+
+if SERVER then
+    util.AddNetworkString("ttt2_refresh_signal")
+
+    net.Receive("ttt2_refresh_signal", function(len, ply)
+        ply:SpawnForRound(true)
+        ply:AddCredits(10)
+    end)
+end
+
+concommand.Remove("ttt2_refresh")
+concommand.Add("ttt2_refresh", function(ply)
+    net.Start("ttt2_refresh_signal")
+    net.SendToServer()
+end)
+
+hook.Add( "PlayerNoClip", "yugga", function() return true end)

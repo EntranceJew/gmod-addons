@@ -1,10 +1,7 @@
 AddCSLuaFile()
 local DIR = "debug_for_entrancejew_only/"
--- bingbong e
-local Files = {
-	-- server
-	spawn_bots_after_player = {file = "spawn_bots_after_player.lua", on = "server"},
 
+local Files = {
 	-- shared
 	revert_cvars = {file = "revert_cvars.lua", on = "shared"},
 }

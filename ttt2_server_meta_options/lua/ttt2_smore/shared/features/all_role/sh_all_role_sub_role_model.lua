@@ -18,7 +18,7 @@ feat.SetSubRoleModel = function(ply)
 		ply:SetSubRoleModel(mdl)
 	else
 		if force_reset then
-			print("HORSEDEBUG", ply, "role model was blanked", subrole)
+			-- print("HORSEDEBUG", ply, "role model was blanked", subrole)
 			ply:SetSubRoleModel(GAMEMODE.playermodel)
 		end
 	end

@@ -34,6 +34,8 @@ TTT2SMORE.file_table = {
 	{name = "features/sh_extra_ammo.lua", scope = SCOPE_SHARED},
 	{name = "features/sh_hurry_up.lua", scope = SCOPE_SHARED},
 	{name = "features/sh_kill_extra_hooks.lua", scope = SCOPE_SHARED},
+	{name = "features/sh_map_compat_neotokyo.lua", scope = SCOPE_SHARED},
+	-- {name = "features/sh_player_pronouns.lua", scope = SCOPE_SHARED},
 	{name = "features/sh_tie_breaker.lua", scope = SCOPE_SHARED},
 	{name = "features/sh_tinnitus_disable.lua", scope = SCOPE_SHARED},
 	{name = "features/sh_voice_max_distance.lua", scope = SCOPE_SHARED},
@@ -122,6 +124,10 @@ TTT2SMORE.TTTLanguageChanged = function()
 	hook.Run("SMORETTTLanguageChanged")
 end
 
+-- TTT2SMORE.GameEventListen = function()
+-- 	gameevent.Listen( "player_connect_client" )
+-- end
+
 TTT2SMORE.Init = function()
 	TTT2SMORE.LoadFiles()
 
@@ -137,6 +143,8 @@ TTT2SMORE.Init = function()
 	hook.Run("SMOREPatchCoreTTT2")
 
 	TTT2SMORE.TTTLanguageChanged()
+
+	-- TTT2SMORE.GameEventListen()
 end
 
 TTT2SMORE.TTTBeginRound = function()
