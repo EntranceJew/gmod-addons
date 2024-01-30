@@ -235,44 +235,44 @@ hook.Add( "PostDrawTranslucentRenderables", "DropItemBeacons", function(bDrawing
 				and not is_owned
 				and not is_worn
 		then
-			if not v.itemhalo_beam_color then
-				v.itemhalo_beam_color = Color(lookup_result.color.r, lookup_result.color.g, lookup_result.color.b, lookup_result.color.a)
+			if not v.dropitembeacons_beam_color then
+				v.dropitembeacons_beam_color = Color(lookup_result.color.r, lookup_result.color.g, lookup_result.color.b, lookup_result.color.a)
 			end
-			if not v.itemhalo_detail_text_color then
-				v.itemhalo_detail_text_color = Color(lookup_result.text_color.r, lookup_result.text_color.g, lookup_result.text_color.b, lookup_result.text_color.a)
+			if not v.dropitembeacons_detail_text_color then
+				v.dropitembeacons_detail_text_color = Color(lookup_result.text_color.r, lookup_result.text_color.g, lookup_result.text_color.b, lookup_result.text_color.a)
 			end
-			if not v.itemhalo_detail_box_color then
-				v.itemhalo_detail_box_color = Color(lookup_result.box_color.r, lookup_result.box_color.g, lookup_result.box_color.b, lookup_result.box_color.a)
+			if not v.dropitembeacons_detail_box_color then
+				v.dropitembeacons_detail_box_color = Color(lookup_result.box_color.r, lookup_result.box_color.g, lookup_result.box_color.b, lookup_result.box_color.a)
 			end
-			if not v.itemhalo_text_color then
-				v.itemhalo_text_color = Color(lookup_result.text_color.r, lookup_result.text_color.g, lookup_result.text_color.b, lookup_result.text_color.a)
+			if not v.dropitembeacons_text_color then
+				v.dropitembeacons_text_color = Color(lookup_result.text_color.r, lookup_result.text_color.g, lookup_result.text_color.b, lookup_result.text_color.a)
 			end
-			if not v.itemhalo_box_color then
-				v.itemhalo_box_color = Color(lookup_result.box_color.r, lookup_result.box_color.g, lookup_result.box_color.b, lookup_result.box_color.a)
+			if not v.dropitembeacons_box_color then
+				v.dropitembeacons_box_color = Color(lookup_result.box_color.r, lookup_result.box_color.g, lookup_result.box_color.b, lookup_result.box_color.a)
 			end
 			local distance = lply:GetPos():Distance( v:GetPos() )
 			local alpha = math.Clamp( 1024 - ( distance * 8 ) / 2, 0, 200 )
-			v.itemhalo_text_color.a = alpha
-			v.itemhalo_box_color.a = alpha
+			v.dropitembeacons_text_color.a = alpha
+			v.dropitembeacons_box_color.a = alpha
 			local alpha2 = math.Clamp( 512 - ( et.HitPos:Distance( v:GetPos() ) * 16 ), 0, 240 )
-			v.itemhalo_detail_text_color.a = alpha2
-			v.itemhalo_detail_box_color.a = alpha2
+			v.dropitembeacons_detail_text_color.a = alpha2
+			v.dropitembeacons_detail_box_color.a = alpha2
 
 			local light_start = v:LocalToWorld(v:OBBCenter())
 			local light_end = light_start + light_offset
 
 			if distance <= lod_dist then
 				local beam_alpha = math.Clamp( lod_dist - distance, 0, 200 )
-				v.itemhalo_beam_color.a = beam_alpha
+				v.dropitembeacons_beam_color.a = beam_alpha
 
 				render.SetMaterial( mat_flare )
-				render.DrawSprite( light_start, beam_sprite_size, beam_sprite_size, v.itemhalo_beam_color)
+				render.DrawSprite( light_start, beam_sprite_size, beam_sprite_size, v.dropitembeacons_beam_color)
 				render.SetMaterial( mat_laser )
-				render.DrawBeam( light_start, light_end, beam_width, 0, 1, v.itemhalo_beam_color )
+				render.DrawBeam( light_start, light_end, beam_width, 0, 1, v.dropitembeacons_beam_color )
 			end
 
 			if show_names and (distance <= lod_text)
-				and (ignore_world or (not ignore_world and ITEMHALO.IsVisibleToPlayer( v, lply )))
+				and (ignore_world or (not ignore_world and DROPITEMBEACONS.IsVisibleToPlayer( v, lply )))
 			then
 				cam.Start2D()
 				local text_pos = light_end:ToScreen()
@@ -302,18 +302,18 @@ hook.Add( "PostDrawTranslucentRenderables", "DropItemBeacons", function(bDrawing
 				if cache.is_wep then
 					local purpose = not is_string_empty(v.Purpose) and v.Purpose or false
 					if dib_vis_showpurpose:GetBool() and purpose then
-						draw.WordBox( detail_box_size, text_pos.x, text_pos.y + offset, "Purpose: " .. purpose, detail_font_name, v.itemhalo_detail_text_color, v.itemhalo_detail_box_color )
+						draw.WordBox( detail_box_size, text_pos.x, text_pos.y + offset, "Purpose: " .. purpose, detail_font_name, v.dropitembeacons_detail_text_color, v.dropitembeacons_detail_box_color )
 						offset = offset + detail_box_offset
 					end
 
 					local author = not is_string_empty(v.Author) and v.Author or false
 					if dib_vis_showauthor:GetBool() and author then
-						draw.WordBox( detail_box_size, text_pos.x, text_pos.y + offset, "Author: " .. author, detail_font_name, v.itemhalo_detail_text_color, v.itemhalo_detail_box_color )
+						draw.WordBox( detail_box_size, text_pos.x, text_pos.y + offset, "Author: " .. author, detail_font_name, v.dropitembeacons_detail_text_color, v.dropitembeacons_detail_box_color )
 						offset = offset + detail_box_offset
 					end
 				end
 
-				draw.WordBox( box_size, text_pos.x, text_pos.y, name, font_name, v.itemhalo_box_color, v.itemhalo_text_color )
+				draw.WordBox( box_size, text_pos.x, text_pos.y, name, font_name, v.dropitembeacons_box_color, v.dropitembeacons_text_color )
 				cam.End2D()
 			end
 		end
