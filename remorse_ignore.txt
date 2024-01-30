@@ -1,0 +1,6 @@
+^\.git\\.*
+^lua\\.*
+^addon\.json
+^icon\.png
+^icon\.xcf
+^info\.md

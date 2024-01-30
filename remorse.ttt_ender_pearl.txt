@@ -1,0 +1,15 @@
+gamemodes\terrortown\entities\entities\sent_enderparticle\cl_init.lua
+gamemodes\terrortown\entities\entities\sent_enderparticle\init.lua
+gamemodes\terrortown\entities\entities\sent_enderparticle\shared.lua
+gamemodes\terrortown\entities\entities\sent_enderpearl\cl_init.lua
+gamemodes\terrortown\entities\entities\sent_enderpearl\init.lua
+gamemodes\terrortown\entities\entities\sent_enderpearl\shared.lua
+gamemodes\terrortown\entities\weapons\weapon_ttt_enderpearl.lua
+materials\entities\weapon_ttt_enderpearl.png
+materials\models\weapons\weapon_ttt_enderpearl\enddust1.png
+materials\models\weapons\weapon_ttt_enderpearl\enddust2.png
+materials\models\weapons\weapon_ttt_enderpearl\enddust3.png
+materials\models\weapons\weapon_ttt_enderpearl\endpearl.png
+materials\vgui\ttt\icon_ttt_enderpearl.png
+sound\weapons\weapon_ttt_enderpearl\bow.mp3
+sound\weapons\weapon_ttt_enderpearl\teleport.mp3

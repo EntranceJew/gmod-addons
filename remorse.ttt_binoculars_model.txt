@@ -1,0 +1,13 @@
+gamemodes\terrortown\content\materials\models\weapons\v_binoculars\binocular2.vmt
+gamemodes\terrortown\content\materials\models\weapons\v_binoculars\binocular2.vtf
+gamemodes\terrortown\content\models\weapons\v_binoculars.dx80.vtx
+gamemodes\terrortown\content\models\weapons\v_binoculars.dx90.vtx
+gamemodes\terrortown\content\models\weapons\v_binoculars.mdl
+gamemodes\terrortown\content\models\weapons\v_binoculars.sw.vtx
+gamemodes\terrortown\content\models\weapons\v_binoculars.vvd
+gamemodes\terrortown\content\models\weapons\w_binoculars.dx80.vtx
+gamemodes\terrortown\content\models\weapons\w_binoculars.dx90.vtx
+gamemodes\terrortown\content\models\weapons\w_binoculars.mdl
+gamemodes\terrortown\content\models\weapons\w_binoculars.phy
+gamemodes\terrortown\content\models\weapons\w_binoculars.sw.vtx
+gamemodes\terrortown\content\models\weapons\w_binoculars.vvd

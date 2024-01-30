@@ -1,0 +1,2 @@
+gamemodes\terrortown\content\materials\vgui\ttt\icon_brainp.png
+gamemodes\terrortown\entities\weapons\weapon_ttt_brain.lua

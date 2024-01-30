@@ -1,0 +1,5 @@
+gamemodes\terrortown\content\materials\vgui\ttt\icon_springmine.png
+gamemodes\terrortown\content\sound\weapons\ttt_spring_mine\sm64_mario_boing.wav
+gamemodes\terrortown\content\sound\weapons\ttt_spring_mine\sm64_mario_boing2.wav
+gamemodes\terrortown\entities\entities\ttt_spring_mine.lua
+gamemodes\terrortown\entities\weapons\weapon_ttt_springmine.lua

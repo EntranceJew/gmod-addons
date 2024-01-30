@@ -1,0 +1,4 @@
+gamemodes\terrortown\content\materials\vgui\nb\nbscope.png
+gamemodes\terrortown\content\materials\vgui\ttt\icon_dart.vmt
+gamemodes\terrortown\content\materials\vgui\ttt\icon_dart.vtf
+gamemodes\terrortown\entities\weapons\weapon_ttt_tracker.lua
