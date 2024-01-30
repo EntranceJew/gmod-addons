@@ -5,16 +5,6 @@
 		},
 		{
 			"path": "../../../../../../steamapps/common/GarrysMod/garrysmod/cfg"
-		},
-		{
-			"path": "../_playpin"
-		},
-		{
-			"path": "../_art_assets"
-		},
-		{
-			"path": "../_outdev"
-		},
 		}
 	],
 	"settings": {
@@ -99,6 +89,20 @@
 		],
 		"cSpell.words": [
 			"Collusionist"
-		]
+		],
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true
+		},
+		"editor.fontSize": 14,
+		"customizeUI.fontSizeMap": {
+			"13px": "11px",
+			"14px": "12px",
+			"monospace": "12px"
+		}
 	}
 }

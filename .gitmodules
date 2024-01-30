@@ -16,3 +16,20 @@
 [submodule "ttt_portal_gun"]
 	path = ttt_portal_gun
 	url = git@github.com:EntranceJew/ttt_portal_gun.git
+[submodule "TTT-BearTrap"]
+	path = TTT-BearTrap
+	url = git@github.com:EntranceJew/TTT-BearTrap.git
+[submodule "coolhitmarker"]
+	path = coolhitmarker
+	url = git@github.com:EntranceJew/coolhitmarker.git
+[submodule "ttt2-role_snif"]
+	path = ttt2-role_snif
+	url = git@github.com:EntranceJew/ttt2-role_snif.git
+	branch = master
+[submodule "ttt2-weaponstats"]
+	path = ttt2-weaponstats
+	url = git@github.com:EntranceJew/ttt2-weaponstats.git
+	branch = master
+[submodule "TTT-Bots-2"]
+	path = TTT-Bots-2
+	url = git@github.com:EntranceJew/TTT-Bots-2.git

@@ -1,0 +1,41 @@
+{
+	"$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+	"diagnostics.disable": [
+		"duplicate-set-field",
+		"unused-local",
+		"lowercase-global",
+		"inject-field",
+		"undefined-field",
+		"param-type-mismatch",
+		"cast-local-type"
+	],
+	"diagnostics.globals": [
+		"GM",
+		"BaseClass",
+		"CLGAMEMODEMENU",
+		"CLGAMEMODESUBMENU",
+		"CLSCOREMENU",
+		"EVENT",
+		"TEXFILTER",
+        "CreateVFireBall",
+        "AMMO_SMOKE",
+        "WEAPON_NADE",
+        "WEAPON_TYPE_NADE",
+        "AMMO_DISCOMB",
+        "AMMO_MOLOTOV",
+        "game_effects",
+        "COLOR_GREEN",
+        "COLOR_RED"
+	],
+	"diagnostics.ignoredFiles": "Enable",
+	"format.enable": false,
+	"runtime.special": {
+		"include": "require",
+		"includeCS": "require"
+	},
+	"runtime.version": "LuaJIT",
+	"runtime.nonstandardSymbol": [
+		"continue"
+	],
+	"workspace.checkThirdParty": false
+}
