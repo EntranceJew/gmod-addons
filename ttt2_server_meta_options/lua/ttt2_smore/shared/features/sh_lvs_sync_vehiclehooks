@@ -1,0 +1,11 @@
+
+
+hook.Add("LVS.PlayerEnteredVehicle", "XXX_PlayerEnteredVehicle", function(ply, vehicle)
+    local role = ply:GetRole()
+    hook.Run("PlayerEnteredVehicle", ply, vehicle, role)
+end)
+
+hook.Add("LVS.PlayerLeaveVehicle", "XXX_PlayerLeaveVehicle", function(ply, vehicle)
+    local role = ply:GetRole()
+    hook.Run("PlayerLeaveVehicle", ply, vehicle, role)
+end)
