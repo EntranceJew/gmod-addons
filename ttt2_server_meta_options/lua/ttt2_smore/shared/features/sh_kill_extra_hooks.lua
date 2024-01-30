@@ -1,6 +1,6 @@
 local feat = {}
 
-TTT2SMORE.HookAdd("PostInitPostEntity", "kill_extra_hooks", function()
+TTT2SMORE.HookAdd("SMOREPatchCoreTTT2", "kill_extra_hooks", function()
 	if not GetConVar("sv_smore_kill_extra_hooks"):GetBool() then return end
 
 	hook.Remove("TTTBeginRound", "BeginRoundDetectiveSkin")

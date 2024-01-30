@@ -33,3 +33,9 @@
 [submodule "TTT-Bots-2"]
 	path = TTT-Bots-2
 	url = git@github.com:EntranceJew/TTT-Bots-2.git
+[submodule "ttt2-advanced_spectator"]
+	path = ttt2-advanced_spectator
+	url = git@github.com:Spanospy/TTT2.gitgit@github.com:EntranceJew/ttt2-advanced_spectator.git
+[submodule "ttt2-roundinfo"]
+	path = ttt2-roundinfo
+	url = git@github.com:EntranceJew/ttt2-roundinfo.git

@@ -263,7 +263,7 @@ PropSpec_NoGrief.SlowThink = function()
             if ent_meta.possessor then
                 dprint("EJEW:", ent, "aborting, within range of player; also ejecting")
                 local ply = Entity( ent_meta.possessor )
-                if IsValid(ply) and ply:IsPlayer() and not ply:Alive() then
+                if IsValid(ply) and ply:IsPlayer() and ply:IsSpec() and not ply:Alive() then
                     PROPSPEC.End(ply)
                 end
             else

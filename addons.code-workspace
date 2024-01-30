@@ -5,10 +5,19 @@
 		},
 		{
 			"path": "../../../../../../steamapps/common/GarrysMod/garrysmod/cfg"
+		},
+		{
+			"path": "../_playpin/weapon_mash"
 		}
 	],
 	"settings": {
+		"editor.quickSuggestions": {
+			"comments": "on",
+			"strings": "on",
+			"other": "on"
+		},
 		"files.trimTrailingWhitespace": true,
+		"glualint.linter": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\GarrysMod\\glualint.exe",
 		"glualint.activeLanguages": [
 			"glua",
 			"lua"
@@ -88,7 +97,42 @@
 			"||",
 		],
 		"cSpell.words": [
-			"Collusionist"
+			"BONEMERGE",
+			"Collusionist",
+			"colorcorrection",
+			"concommand",
+			"convar",
+			"cooldown",
+			"dedupe",
+			"disguiser",
+			"dmginfo",
+			"endpos",
+			"ents",
+			"FASTCULL",
+			"FCVAR",
+			"gamemode",
+			"gamemodes",
+			"ipairs",
+			"isstring",
+			"Lerp",
+			"MOVETYPE",
+			"oildrum",
+			"physenv",
+			"playermodels",
+			"ragdoll",
+			"slavename",
+			"smore",
+			"Spawnable",
+			"SWEP",
+			"terrortown",
+			"tonumber",
+			"tostring",
+			"tttbase",
+			"Undisguise",
+			"vgui",
+			"VPHYSICS",
+			"wsid",
+			"wsids"
 		],
 		"files.exclude": {
 			"**/.git": true,
@@ -98,11 +142,51 @@
 			"**/.DS_Store": true,
 			"**/Thumbs.db": true
 		},
+		"files.autoSave": "onFocusChange",
+		"files.autoSaveDelay": 100,
 		"editor.fontSize": 14,
 		"customizeUI.fontSizeMap": {
 			"13px": "11px",
 			"14px": "12px",
 			"monospace": "12px"
-		}
+		},
+		"cSpell.enableFiletypes": [
+			"!c",
+			"!cpp",
+			"!csharp",
+			"!elixir",
+			"!erlang",
+			"!go",
+			"!graphql",
+			"!handlebars",
+			"!jade",
+			"!java",
+			"!javascript",
+			"!javascriptreact",
+			"!jsonc",
+			"!jupyter",
+			"!less",
+			"!php",
+			"!pug",
+			"!python",
+			"!rust",
+			"!scala",
+			"!scminput",
+			"!scss",
+			"!swift",
+			"!typescript",
+			"!typescriptreact",
+			"!vue",
+			"!yaml",
+			"!yml",
+			"code-text-binary",
+			"diff",
+			"git-rebase",
+			"glua",
+			"lua",
+			"powershell"
+		],
+		"cSpell.language": "en,en-US",
+		"cSpell.enabled": true
 	}
 }

@@ -3,7 +3,8 @@ local feat = {}
 feat.VoiceMaxDistance = function(listener, talker)
 	-- TODO: use NikNaks.PAS to trace this problem separately
 	-- TOOD: dig out my code from my message history from benj to do this more precisely with LOS dampening
-	if not GetConVar("sv_smore_voice_max_distance_enable"):GetBool() then return end
+	local en = GetConVar("sv_smore_voice_max_distance_enable")
+	if not (en and en:GetBool()) then return end
 	local dist = GetConVar("sv_smore_voice_max_distance_range"):GetFloat()
 	local distSqr = dist * dist
 	if IsValid(listener) and IsValid(talker)

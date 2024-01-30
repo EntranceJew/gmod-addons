@@ -82,7 +82,7 @@ TTT2SMORE.HookAdd("PlayerSay", "player_pronouns", function(ply, txt)
 	end
 end)
 
-TTT2SMORE.HookAdd("PostInitPostEntity", "player_pronouns", function()
+TTT2SMORE.HookAdd("SMOREPatchCoreTTT2", "player_pronouns", function()
 	feat.CreateTable()
 
 	if not GetConVar("sv_smore_pronouns_wrap_player"):GetBool() then return end

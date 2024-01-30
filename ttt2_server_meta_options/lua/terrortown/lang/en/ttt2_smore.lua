@@ -1,8 +1,5 @@
 L = LANG.GetLanguageTableReference("en")
 
-L["door_open_stealth"] = "Press [{usekey}] to open door, press [{walkkey} + {usekey}] for quiet open."
-L["door_close_stealth"] = "Press [{usekey}] to close door, press [{walkkey} + {usekey}] for quiet close."
-
 L["smore_all_role_notify_extra_credits"] = "You have recieved {credits} extra credit(s) for the amount of players this round!"
 L["smore_hurry_up"] = "{seconds} seconds remaining, all players have radar!"
 L["smore_hurry_up_extended"] = "Round was extended, gifted radars removed."
@@ -104,6 +101,10 @@ L["help_ttt2_sv_smore_equipment_weapon_ttt_defibrillator_disconnect_refund"] = "
 -- Edit Equipment > Turret > Additional Equipment Settings
 L["label_ttt2_sv_smore_equipment_weapon_ttt_turret_weight"] = "Turret Weight"
 L["help_ttt2_sv_smore_equipment_weapon_ttt_turret_weight"] = "A multiplier against the weight of the turret, which controls how easy it is to topple or relocate."
+
+-- Edit Equipment > Deployable Force Shield > Additional Equipment Settings
+L["label_ttt2_sv_smore_equipment_weapon_ttt_force_shield_setmodel"] = "Set Model"
+L["help_ttt2_sv_smore_equipment_weapon_ttt_force_shield_setmodel"] = "Set the world model to a combine ball instead of a roll of towels."
 
 -- Role Settings > Swapper > SMORE: Infected / General
 L["header_roles_smore_inf_general"] = "SMORE: Infected / General"

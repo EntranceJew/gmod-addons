@@ -66,23 +66,10 @@ local categories = {
 		name = "grenade",
 		color = Color(255,   0,   0)
 	},
-	-- {
-	-- 	name = "medical",
-	-- 	color = Color(80, 255, 80),
-	-- 	classes = {
-	-- 		"item_healthkit",
-	-- 		"item_healthvial",
-	-- 		"item_battery"
-	-- 	},
-	-- },
-	-- {
-	-- 	name = "swep",
-	-- 	color = Color(255, 200, 220)
-	-- },
-	-- {
-	-- 	name = "sent",
-	-- 	color = Color(180, 225, 255)
-	-- },
+	{
+		name = "equipment",
+		color = Color(255,   0,   255)
+	},
 }
 DROPITEMBEACONS.categories = categories
 
@@ -169,6 +156,7 @@ local function LearnAboutEntity(ent)
 		e.is_ttt_grenade = weapons.IsBasedOn(class, "weapon_tttbasegrenade")
 		e.is_ttt_weapon = weapons.IsBasedOn(class, "weapon_tttbase")
 		e.is_ttt_melee = class == "weapon_zm_improvised" or class == "weapon_zm_carry" or weapons.IsBasedOn(class, "weapon_zm_improvised") or weapons.IsBasedOn(class, "weapon_zm_carry")
+		e.is_ttt_equipment = TTT2 and (ent.kind == WEAPON_SPECIAL or ent.kind == WEAPON_EXTRA or ent.kind == WEAPON_CLASS)
 
 		if e.is_ttt_ammo then
 			e.lookup = "ammo"
@@ -178,6 +166,8 @@ local function LearnAboutEntity(ent)
 			e.lookup = "melee"
 		elseif e.is_ttt_grenade then
 			e.lookup = "grenade"
+		elseif e.is_ttt_equipment then
+			e.lookup = "equipment"
 		elseif e.is_ttt_weapon then
 			e.lookup = "wep"
 		elseif e.is_wep then

@@ -2,6 +2,16 @@ TTT2SMORE.GetListFromConVar = function(convar)
 	return string.Split(GetConVar( "sv_smore_" .. convar):GetString(),   "|")
 end
 
+TTT2SMORE.GetColorFromConVar = function(convar)
+	local cv = GetConVar( "sv_smore_" .. convar)
+	local str = string.Explode(" ", cv:GetString())
+	return Color(str[1], str[2], str[3], str[4])
+end
+
+TTT2SMORE.GetStringFromColor = function(clr)
+	return string.format("%d %d %d %d", clr.r, clr.g, clr.b, clr.a)
+end
+
 TTT2SMORE.MakeCVar = function(name, default)
 ---@diagnostic disable-next-line: missing-parameter
 	TTT2SMORE.CVARS[name] = CreateConVar(

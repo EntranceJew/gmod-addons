@@ -22,7 +22,10 @@ TTT2SMORE.file_table = {
 	{name = "sh_ttt2_smore.lua", scope = SCOPE_SHARED},
 
 	-- shared
+	{name = "concommands/sh_file_dedupe.lua", scope = SCOPE_SHARED},
+
 	{name = "equipment/sh_weapon_ttt_defibrillator.lua", scope = SCOPE_SHARED},
+	{name = "equipment/sh_weapon_ttt_force_shield.lua", scope = SCOPE_SHARED},
 	{name = "equipment/sh_weapon_ttt_turret.lua", scope = SCOPE_SHARED},
 
 	{name = "features/all_role/sh_all_role_extra_credits.lua", scope = SCOPE_SHARED},
@@ -48,6 +51,7 @@ TTT2SMORE.file_table = {
 
 	-- client
 	{name = "concommands/cl_quick_mute.lua", scope = SCOPE_CLIENT},
+	{name = "concommands/cl_safe_flushlod.lua", scope = SCOPE_CLIENT},
 }
 
 TTT2SMORE.file_times = {}
@@ -74,7 +78,7 @@ end
 
 TTT2SMORE.HookAdd = function(hook_name, hook_id, func)
 	local long_id = "TTT2SMORE_" .. hook_name
-	if hook_id ~= nil or hook_id ~= "" then
+	if hook_id ~= nil and hook_id ~= "" and type(hook_id) ~= "table" then
 		long_id = long_id .. hook_id
 	end
 	hook.Remove(hook_name, long_id)
@@ -171,7 +175,6 @@ TTT2SMORE.TTTEndRound = function()
 	end
 	timer.Remove("SMORESlowThink")
 end
-
 
 TTT2SMORE.HookAdd("PostInitPostEntity", "Init", TTT2SMORE.Init)
 TTT2SMORE.HookAdd("TTTBeginRound", "TTTBeginRound", TTT2SMORE.TTTBeginRound)
