@@ -1,0 +1,12 @@
+{
+  "title": "Grappling Hook [SWEP]",
+  "type": "weapon",
+  "tags": [
+    "fun",
+    "roleplay",
+    "movie"
+  ],
+  "ignore": [
+    "*.db"
+  ]
+}

@@ -1,0 +1,10 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "mm_materials/zinc01"
+	"$bumpmap" "mm_materials/zinc01_normal"
+	"$envmap" "mm_materials/cubemaps/generic01_cube"
+	"$envmapcontrast" -1
+	"$envmapsaturation" 1
+	"$envmaptint" "[.4 .4 .4]"
+	"$normalmapalphaenvmapmask" 1
+}
