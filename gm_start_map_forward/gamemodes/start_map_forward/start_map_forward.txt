@@ -1,0 +1,8 @@
+"start_map_forward"
+{
+	"base"		"base"
+	"title"		"Start Map Forward"
+	"maps"		"gm_start_map_forward"
+	"category"	"other"
+	"menusystem"	"1"
+}
