@@ -35,7 +35,80 @@
 	url = git@github.com:EntranceJew/TTT-Bots-2.git
 [submodule "ttt2-advanced_spectator"]
 	path = ttt2-advanced_spectator
-	url = git@github.com:Spanospy/TTT2.gitgit@github.com:EntranceJew/ttt2-advanced_spectator.git
+	url = git@github.com:EntranceJew/ttt2-advanced_spectator.git
 [submodule "ttt2-roundinfo"]
 	path = ttt2-roundinfo
 	url = git@github.com:EntranceJew/ttt2-roundinfo.git
+[submodule "weapon_mash_exclusives"]
+	path = "weapon_mash_exclusives"
+	url = git@github.com:EntranceJew/weapon_mash_exclusives.git
+[submodule "ttt2-role_collusionist"]
+	path = "ttt2-role_collusionist"
+	url = git@github.com:EntranceJew/ttt2-role_collusionist.git
+[submodule "ttt2_ticket_muncher"]
+	path = "ttt2_ticket_muncher"
+	url = git@github.com:EntranceJew/ttt2_ticket_muncher.git
+[submodule "ttt2_shellmet"]
+	path = "ttt2_shellmet"
+	url = git@github.com:EntranceJew/ttt2_shellmet.git
+[submodule "ttt2_server_meta_options"]
+	path = "ttt2_server_meta_options"
+	url = git@github.com:EntranceJew/ttt2_server_meta_options.git
+[submodule "ttt2_propspec_nogrief"]
+	path = "ttt2_propspec_nogrief"
+	url = git@github.com:EntranceJew/ttt2_propspec_nogrief.git
+[submodule "ttt2_pot_of_greedier"]
+	path = "ttt2_pot_of_greedier"
+	url = git@github.com:EntranceJew/ttt2_pot_of_greedier.git
+[submodule "ttt2_map_vote_pools"]
+	path = "ttt2_map_vote_pools"
+	url = git@github.com:EntranceJew/ttt2_map_vote_pools.git
+[submodule "ttt2_map_icon_jamboree"]
+	path = "ttt2_map_icon_jamboree"
+	url = git@github.com:EntranceJew/ttt2_map_icon_jamboree.git
+[submodule "ttt2_green_demon"]
+	path = "ttt2_green_demon"
+	url = git@github.com:EntranceJew/ttt2_green_demon.git
+[submodule "ttt2_extra_lootable_props"]
+	path = "ttt2_extra_lootable_props"
+	url = git@github.com:EntranceJew/ttt2_extra_lootable_props.git
+[submodule "ttt2_comprehensive_identity_assistance"]
+	path = "ttt2_comprehensive_identity_assistance"
+	url = git@github.com:EntranceJew/ttt2_comprehensive_identity_assistance.git
+[submodule "timely_music"]
+	path = "timely_music"
+	url = git@github.com:EntranceJew/timely_music.git
+[submodule "thunder_makes_fire"]
+	path = "thunder_makes_fire"
+	url = git@github.com:EntranceJew/thunder_makes_fire.git
+[submodule "lots_of_currency"]
+	path = "lots_of_currency"
+	url = git@github.com:EntranceJew/lots_of_currency.git
+[submodule "gm_start_map_forward"]
+	path = "gm_start_map_forward"
+	url = git@github.com:EntranceJew/gm_start_map_forward.git
+[submodule "freedom_units"]
+	path = "freedom_units"
+	url = git@github.com:EntranceJew/freedom_units.git
+[submodule "dropped_item_beacons"]
+	path = "dropped_item_beacons"
+	url = git@github.com:EntranceJew/dropped_item_beacons.git
+[submodule "dermasfx_theme_mgsv"]
+	path = "dermasfx_theme_mgsv"
+	url = git@github.com:EntranceJew/dermasfx_theme_mgsv.git
+[submodule "dermasfx_theme_gta_sa"]
+	path = "dermasfx_theme_gta_sa"
+	url = git@github.com:EntranceJew/dermasfx_theme_gta_sa.git
+[submodule "death_combined_luggage"]
+	path = "death_combined_luggage"
+	url = git@github.com:EntranceJew/death_combined_luggage.git
+[submodule "ban_random_seed"]
+	path = "ban_random_seed"
+	url = git@github.com:EntranceJew/ban_random_seed.git
+[submodule "background_npcs_ac_nh_citizens"]
+	path = "background_npcs_ac_nh_citizens"
+	url = git@github.com:EntranceJew/background_npcs_ac_nh_citizens.git
+[submodule "awesome_hands"]
+	path = "awesome_hands"
+	url = git@github.com:EntranceJew/awesome_hands.git
+
