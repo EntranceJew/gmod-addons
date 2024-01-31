@@ -111,4 +111,73 @@
 [submodule "awesome_hands"]
 	path = "awesome_hands"
 	url = git@github.com:EntranceJew/awesome_hands.git
+[submodule "vfs"]
+	path = "vfs"
+	url = git@github.com:CFC-Servers/vfs.git
+[submodule "BadCoderz"]
+	path = "BadCoderz"
+	url = git@github.com:ExtReMLapin/BadCoderz.git
+[submodule "FProfiler"]
+	path = "FProfiler"
+	url = git@github.com:FPtje/FProfiler.git
+[submodule "gcodec"]
+	path = "gcodec"
+	url = git@github.com:CFC-Servers/gcodec.git
+[submodule "gcompute"]
+	path = "gcompute"
+	url = git@github.com:CFC-Servers/gcompute.git
+[submodule "glib"]
+	path = "glib"
+	url = git@github.com:CFC-Servers/glib.git
+[submodule "gooey"]
+	path = "gooey"
+	url = git@github.com:CFC-Servers/gooey.git
+[submodule "NikNaks"]
+	path = "NikNaks"
+	url = git@github.com:Nak2/NikNaks.git
+[submodule "ttt2_ceasefire_at_roundbegin"]
+	path = "ttt2_ceasefire_at_roundbegin"
+	url = git@github.com:BeeJay28/ttt2_ceasefire_at_roundbegin.git
+[submodule "ttt2_the_soap"]
+	path = "ttt2_the_soap"
+	url = git@github.com:EntranceJew/ttt2_the_soap.git
+[submodule "TTT2-Fan"]
+	path = "TTT2-Fan"
+	url = git@github.com:EntranceJew/TTT2-Fan.git
+[submodule "ttt2-octagonal-hud"]
+	path = "ttt2-octagonal-hud"
+	url = git@github.com:EntranceJew/ttt2-octagonal-hud.git
+[submodule "ttt2-pointer"]
+	path = "ttt2-pointer"
+	url = git@github.com:EntranceJew/ttt2-pointer.git
+[submodule "ttt2-role_debugger"]
+	path = "ttt2-role_debugger"
+	url = git@github.com:EntranceJew/ttt2-role_debugger.git
+[submodule "ttt2-role_mark"]
+	path = "ttt2-role_mark"
+	url = git@github.com:EntranceJew/ttt2-role_mark.git
+[submodule "ttt2-role_snif"]
+	path = "ttt2-role_snif"
+	url = git@github.com:EntranceJew/ttt2-role_snif.git
+[submodule "ttt2-role_tra"]
+	path = "ttt2-role_tra"
+	url = git@github.com:Gensokian/ttt2-role_tra.git
+[submodule "ttt2-role-leech"]
+	path = "ttt2-role-leech"
+	url = git@github.com:EntranceJew/ttt2-role-leech.git
+[submodule "ttt2-weaponstats"]
+	path = "ttt2-weaponstats"
+	url = git@github.com:EntranceJew/ttt2-weaponstats.git
+[submodule "ttt2-wep_boom_body"]
+	path = "ttt2-wep_boom_body"
+	url = git@github.com:EntranceJew/ttt2-wep_boom_body.git
+[submodule "ttt2-wep_minifier"]
+	path = "ttt2-wep_minifier"
+	url = git@github.com:EntranceJew/ttt2-wep_minifier.git
+[submodule "ttt-combattext"]
+	path = "ttt-combattext"
+	url = git@github.com:EntranceJew/ttt-combattext.git
+[submodule "ttt-deadringer"]
+	path = "ttt-deadringer"
+	url = git@github.com:EntranceJew/ttt-deadringer.git
 
