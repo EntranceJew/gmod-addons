@@ -1,9 +1,0 @@
-"AddonInfo"
-{
-    "name"              "[TiM] music pack"
-    "version"           "1"
-    "author_name"       "You!"
-    "author_email"      ""
-    "info"              "Music for Timely Music."
-    "override"          "0"
-}

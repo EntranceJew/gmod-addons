@@ -25,7 +25,15 @@
         "AMMO_MOLOTOV",
         "game_effects",
         "COLOR_GREEN",
-        "COLOR_RED"
+        "COLOR_RED",
+        "StormFox2",
+        "MSG_MSTACK_WARN",
+        "LANG",
+        "Key",
+        "roles",
+        "COLOR_ORANGE",
+        "COLOR_YELLOW",
+        "ROUND_ACTIVE"
 	],
 	"diagnostics.ignoredFiles": "Enable",
 	"format.enable": false,

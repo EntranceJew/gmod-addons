@@ -1,0 +1,3 @@
+- [ ] thumbnail
+- [ ] navmesh
+- [ ] spawns

@@ -1,7 +1,0 @@
-"UnlitGeneric"
-{
-	"$basetexture"		"vgui/entities/weapon_awesome_hands"
-	"$vertexcolor" 		0
-	"$vertexalpha" 		0
-	"$nolod" 			1
-}

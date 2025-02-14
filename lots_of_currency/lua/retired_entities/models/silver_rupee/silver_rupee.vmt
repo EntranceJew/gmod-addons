@@ -1,6 +1,0 @@
-VertexlitGeneric
-{
-	$basetexture models/silver_rupee/silver_rupee.vtf
-	$surfaceprop glassbottle
-	$model 1
-}

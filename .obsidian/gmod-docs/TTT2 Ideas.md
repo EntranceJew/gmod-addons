@@ -18,3 +18,8 @@
 
 ## Next Idea
 - what is it
+
+
+## Corpse Tagger
+- mark a player when they die
+

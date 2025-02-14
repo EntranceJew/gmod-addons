@@ -7,7 +7,10 @@ local function givewep(calling_ply, target_plys, weapon_name, should_silent)
 	else
 		local thing
 		for i = 1, #target_plys do
-			thing = target_plys[i]:GiveEquipmentWeapon(weapon_name)
+			thing = target_plys[i]:GiveEquipmentWeapon(weapon_name, function(ply, cls, wep)
+				ply:SetActiveWeapon(wep)
+				ply:SelectWeapon(cls)
+			end)
 		end
 
 		ulx.fancyLogAdmin(calling_ply, true, "#A gave weapon #s to #T", thing, target_plys)

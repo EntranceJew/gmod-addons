@@ -38,6 +38,7 @@ TTT2SMORE.file_table = {
 	{name = "features/sh_hurry_up.lua", scope = SCOPE_SHARED},
 	{name = "features/sh_kill_extra_hooks.lua", scope = SCOPE_SHARED},
 	{name = "features/sh_map_compat_neotokyo.lua", scope = SCOPE_SHARED},
+	{name = "features/sh_lvs_sync_vehiclehooks.lua", scope = SCOPE_SHARED},
 	-- {name = "features/sh_player_pronouns.lua", scope = SCOPE_SHARED},
 	{name = "features/sh_tie_breaker.lua", scope = SCOPE_SHARED},
 	{name = "features/sh_tinnitus_disable.lua", scope = SCOPE_SHARED},
@@ -45,6 +46,7 @@ TTT2SMORE.file_table = {
 
 	{name = "mechanics/sh_bot_options.lua", scope = SCOPE_SHARED},
 	{name = "mechanics/sh_door_stealth_and_haste_open.lua", scope = SCOPE_SHARED},
+	{name = "mechanics/sh_vfire.lua", scope = SCOPE_SHARED},
 
 	{name = "roles/sh_infected.lua", scope = SCOPE_SHARED},
 	{name = "roles/sh_swapper.lua", scope = SCOPE_SHARED},

@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../_playpin/weapon_mash"
+		},
+		{
+			"path": "../cfg"
 		}
 	],
 	"settings": {
@@ -98,11 +101,14 @@
 		],
 		"cSpell.words": [
 			"BONEMERGE",
+			"clipin",
+			"clipout",
 			"Collusionist",
 			"colorcorrection",
 			"concommand",
 			"convar",
 			"cooldown",
+			"CSGO",
 			"dedupe",
 			"disguiser",
 			"dmginfo",
@@ -110,16 +116,26 @@
 			"ents",
 			"FASTCULL",
 			"FCVAR",
+			"flushlod",
 			"gamemode",
 			"gamemodes",
+			"gmod",
 			"ipairs",
 			"isstring",
 			"Lerp",
+			"Loadout",
+			"mcore",
 			"MOVETYPE",
 			"oildrum",
 			"physenv",
 			"playermodels",
+			"PRIMARYATTACK",
 			"ragdoll",
+			"reloadmaterials",
+			"reloadtextures",
+			"SECONDARYATTACK",
+			"sideback",
+			"siderelease",
 			"slavename",
 			"smore",
 			"Spawnable",
@@ -187,6 +203,20 @@
 			"powershell"
 		],
 		"cSpell.language": "en,en-US",
-		"cSpell.enabled": true
-	}
+		"cSpell.enabled": true,
+		"editor.defaultFormatter": null,
+		"[lua]": {
+			"editor.defaultFormatter": "JohnnyMorganz.stylua"
+		},
+		"[glua]": {
+			"editor.defaultFormatter": "JohnnyMorganz.stylua"
+		},
+		"stylua.searchParentDirectories": true,
+		"stylua.configPath": "TTT2\\stylua.toml",
+		"workbench.colorCustomizations": {
+			"tab.activeBackground": "#3240ff25",
+			"tab.activeBorderTop": "#d3ff3225",
+			"tab.activeBorder": "#d3ff3225",
+		}
+	},
 }

@@ -1,0 +1,7 @@
+- [ ] migrating chat prints to STATUS or MSTACK messages
+- [ ] migrating custom UI to elements
+- [ ] migrating weapon base to ttt_base_placeable
+- [ ] migrating convars to F1 menu AddToSettingsMenu (EQUIP/ROLE)
+- [ ] migrating passives to ITEM
+- [ ] migrating bombvision type things / netmessages to markerVision API
+- [ ] convert SWEPCK item to WModel

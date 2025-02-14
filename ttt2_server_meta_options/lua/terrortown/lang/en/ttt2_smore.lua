@@ -46,9 +46,8 @@ L["help_ttt2_sv_smore_hurry_up_max_time"] = "The time remaining in which all pla
 L["label_ttt2_sv_smore_kill_extra_hooks"] = "Kill Extra Hooks"
 L["help_ttt2_sv_smore_kill_extra_hooks"] = [[Forcibly removes hooks that are undesired, such as:
 
-- Detective Playermodel
-  It's recommended to use SMORE's built-in Sub-Role Model override if you're still using an addon that sets this.
-]]
+L["label_ttt2_sv_smore_vfire"] = "vFire"
+L["help_ttt2_sv_smore_vfire"] = [[Replaces game_effects library fire functions with vFire compatible ones.]]
 
 L["label_ttt2_sv_smore_map_compat_neotokyo_enable"] = "Map Compat: Neotokyo"
 L["help_ttt2_sv_smore_map_compat_neotokyo_enable"] = [[Creates dummy entities for Neotokyo maps and registers the spawn points for players and weapons.]]

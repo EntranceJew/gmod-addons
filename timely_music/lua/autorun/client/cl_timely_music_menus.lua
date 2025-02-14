@@ -65,9 +65,9 @@ local function handleMenu(panel, data, prefix)
       el.DoClick = data[4]
     else
       el.DoClick = function()
-        for k2, v2 in pairs(data[4]) do
-          RunConsoleCommand( k2, v2 )
-        end
+        local other_data = table.Copy(data[4])
+        local cmd = table.remove(other_data, 1)
+        RunConsoleCommand(cmd, other_data)
       end
     end
     panel:AddItem(el)
@@ -107,5 +107,5 @@ hook.Add( "PopulateToolMenu", cv.meta.title .. "_CustomMenuSettings", function()
           panel:Help("")
     end)
   end
-  -- file.Write( string.lower(cv.meta.title) .. ".txt", TimelyMusic.PropText )
+  file.Write( string.lower(cv.meta.title) .. ".txt", TimelyMusic.PropText )
 end)

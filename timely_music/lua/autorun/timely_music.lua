@@ -41,7 +41,7 @@ vgui.GetControlTable("NoticePanel").SetLegacyType = function(self, t)
 
   self:SizeToContents()
 end
-/*
+--[[
   -- TODO:
   -- TODO: manual path overrides to re-assign song paths
   -- TODO: manual NPC class overrides
@@ -52,7 +52,7 @@ end
   -- TODO: weather chain for "Clear" sometimes becomes {"Clear", "Fog", "Clear"}
   -- TODO: PvP detection / death music
   -- TODO: add server-sided component for reporting witnesses
-*/
+--]]
 local join_time = nil
 local is_reload = false
 if TimelyMusic then
@@ -79,7 +79,7 @@ local con_struct = {
           {"bool", "enabled", "Should we be playing music at all?", 1, 0, 1},
           {"bool", "notifications", "Should we show notifications on track changes?", 1, 0, 1},
           {"float", "volume", "How loud should we be playing?", 1, 0.0, 1.0},
-          {"float", "crossfade_time", "How many in-game minutes should a crossfade take to complete?", 5.0, 0.0, nil},
+          {"float", "crossfade_time", "How many in-game minutes should a crossfade take to complete?", 0.05, 0.0, nil},
           {"bool", "no_zero_length", "Should we ignore tracks that have no length?", 1, 0, 1},
           {"button", "reload", "Should we reload TimelyMusic to refresh installed music packs? Useful for debugging packs you're working on.", {"timelymusic_reload"}},
           {"button", "track_change", "Sends an event that refreshes the track.", function()
@@ -87,6 +87,7 @@ local con_struct = {
           end},
         }},
         {"category", "features", "Features", {
+          {"bool", "feature_no_loop", "Should we allow a song ending to prompt selecting a new song?", 0, 0, 1},
           {"bool", "feature_hourly", "Should we allow the use of hourly music?", 1, 0, 1},
           {"bool", "feature_weather", "Should we allow the use of weather-based music?", 1, 0, 1},
           {"bool", "feature_ambient", "Should we allow the use of ambient music? Disabling will make things silent when out of combat.", 1, 0, 1},
@@ -138,10 +139,34 @@ TimelyMusic = {
     "concurrent_weather",
   },
   EventNames = {
+    "initpostentity",
+    "track_change",
     "combat_start",
     "combat_end",
     "hour_changed",
     "weather_changed",
+    "no_loop",
+    "ttt_round_wait",
+    "ttt_round_prepare",
+    "ttt_round_begin",
+    "ttt_round_end",
+  },
+  CombatEventNames = {
+    ["combat_start"] = true,
+    ["track_change"] = true,
+    ["no_loop"] = true,
+    ["ttt_round_begin"] = true,
+  },
+  AmbientEventNames = {
+    ["initpostentity"] = true,
+    ["track_change"] = true,
+    ["combat_end"] = true,
+    ["hour_changed"] = true,
+    ["weather_changed"] = true,
+    ["no_loop"] = true,
+    ["ttt_round_wait"] = true,
+    ["ttt_round_prepare"] = true,
+    ["ttt_round_end"] = true,
   },
 
   NPCClassTags = {
@@ -314,11 +339,11 @@ TimelyMusic = {
   PathToNode = function(resolve_global, resolve_chain, start_path)
     local root_files, root_dirs = file.Find( start_path .. "/*", "GAME" )
     local t = {}
-    /*
+    --[[
       important node keys:
         type = the key that reflects how the GetMusicForCondition should handle the node
         next = the next table to process in this chain
-    */
+    --]]
 
     for _, root_dir in ipairs(root_dirs) do
       local node_files, node_dirs = file.Find( start_path .. "/" .. root_dir .. "/*", "GAME" )
@@ -329,7 +354,7 @@ TimelyMusic = {
         local found_maps = 0
         for _, node_dir in ipairs(node_dirs) do
           if not TimelyMusic.IsSpecialFolder(node_dir) then
-            maps[node_dir] = TimelyMusic.PathToNode(reserve_global, resolve_chain, path .. "/" .. node_dir)
+            maps[node_dir] = TimelyMusic.PathToNode(resolve_global, resolve_chain, path .. "/" .. node_dir)
             found_maps = found_maps + 1
           end
           -- TODO: [dig] handle if there ARE special folders in maps
@@ -346,7 +371,7 @@ TimelyMusic = {
         local found_classes = 0
         for _, node_dir in ipairs(node_dirs) do
           if not TimelyMusic.IsSpecialFolder(node_dir) then
-            classes[node_dir] = TimelyMusic.PathToNode(reserve_global, resolve_chain, path .. "/" .. node_dir)
+            classes[node_dir] = TimelyMusic.PathToNode(resolve_global, resolve_chain, path .. "/" .. node_dir)
             found_classes = found_classes + 1
           end
           -- TODO: [dig] handle if there ARE special folders in combat
@@ -373,7 +398,7 @@ TimelyMusic = {
         local found_weather = 0
         for _, node_dir in ipairs(node_dirs) do
           if not TimelyMusic.IsSpecialFolder(node_dir) then
-            weather[node_dir] = TimelyMusic.PathToNode(reserve_global, resolve_chain, path .. "/" .. node_dir)
+            weather[node_dir] = TimelyMusic.PathToNode(resolve_global, resolve_chain, path .. "/" .. node_dir)
             found_weather = found_weather + 1
           end
           -- TODO: [dig] handle if there ARE special folders in maps
@@ -384,7 +409,7 @@ TimelyMusic = {
           t.weather = weather
         end
 
-        /*
+        --[[
           -- why did i do this
           if #node_files > 0 then
             t.weather_loose = {}
@@ -392,7 +417,7 @@ TimelyMusic = {
               table.insert(t.weather_loose, path .. "/" .. node_file)
             end
           end
-        */
+        --]]
       end
 
       if root_dir == "hourly" then
@@ -438,18 +463,19 @@ TimelyMusic = {
 
     -- RESOLVE: weather/
     if node.weather and GetConVar("cl_tim_feature_weather"):GetBool() then
-      for _, wname in ipairs(event_data.weather_chain) do
-        if node.weather[wname] then
-          return TimelyMusic.ResolveNode(node.weather[wname], event_name, event_data)
+      for _, weather_name in ipairs(event_data.weather_chain) do
+        weather_name = string.lower(weather_name)
+        if node.weather[weather_name] then
+          return TimelyMusic.ResolveNode(node.weather[weather_name], event_name, event_data)
         end
       end
 
-      /*
+      --[[
         -- literally what was i thinking
         if node.weather_loose and #node.weather_loose > 0 then
           return TimelyMusic.ResolveNode(node.weather_loose, event_name, event_data)
         end
-      */
+      --]]
     end
 
     -- RESOLVE: hourly/%d%d.wav
@@ -480,6 +506,7 @@ TimelyMusic = {
       tdata.ambient_i = 1.0
 
       tdata.GetMusicForCondition = function(self, event_name, event_data)
+        -- PrintTable(self)
         return TimelyMusic.ResolveNode(self, event_name, event_data)
       end
 
@@ -494,6 +521,7 @@ TimelyMusic = {
       if TimelyMusic.Themes[theme] ~= nil then continue end
       local tdata = {}
 
+      tdata.theme_name = theme
       tdata.ambient_i = 1.0
       tdata.csongs = {
         ambient = {},
@@ -501,9 +529,9 @@ TimelyMusic = {
       }
       local files = file.Find( "sound/nombat/" .. theme .. "/*", "GAME" )
       for _, filename in ipairs(files) do
-        print("forcing this", filename)
         local songtype = string.sub(filename, 1, 1)
         local fullpath = "sound/nombat/" .. theme .. "/" .. filename
+        print("forcing this", fullpath, songtype)
         if songtype == "a" then
           table.insert(tdata.csongs.ambient, fullpath)
         elseif songtype == "c" then
@@ -513,11 +541,13 @@ TimelyMusic = {
         end
       end
       tdata.GetMusicForCondition = function(self, event_name, event_data)
-        if event_name == "combat_start" and #tdata.csongs.combat > 0 then
+        if TimelyMusic.CombatEventNames[event_name] and #tdata.csongs.combat > 0 then
           return self.csongs.combat[ math.random( #self.csongs.combat ) ]
-        elseif not event_data.in_combat and (event_name == "hour_changed" or event_name == "weather_changed" or event_name == "combat_end") then
+        elseif not event_data.in_combat and TimelyMusic.AmbientEventNames[event_name] then
           tdata.ambient_i = wrapto(tdata.ambient_i + 1, tdata.csongs.ambient)
           return tdata.csongs.ambient[tdata.ambient_i]
+        else
+          print(self.theme_name, "decided", event_name, event_data.in_combat, tdata.ambient_i)
         end
       end
       TimelyMusic.AddTheme(theme, tdata)
@@ -570,7 +600,7 @@ TimelyMusic = {
             end
           end
           tdata.GetMusicForCondition = function(self, event_name, event_data)
-            if event_name == "combat_start" then
+            if TimelyMusic.CombatEventNames[event_name] then
               for l = 1, #TimelyMusic.NPCClassTags do
                 local tag = TimelyMusic.NPCClassTags[l][1]
                 local comb = self.csongs.combat
@@ -581,7 +611,7 @@ TimelyMusic = {
               -- TODO: make an option to return any if we reach this point
               -- TODO: make an option to use any combat song (nombat feature parity)
               -- return self.csongs.all_combat[ math.random( #self.csongs.all_combat ) ]
-            elseif not event_data.in_combat and (event_name == "hour_changed" or event_name == "combat_end" or event_name == "weather_changed") then
+            elseif not event_data.in_combat and TimelyMusic.AmbientEventNames[event_name] then
               tdata.ambient_i = wrapto(tdata.ambient_i + 1, tdata.csongs.ambient)
               return tdata.csongs.ambient[tdata.ambient_i]
             end
@@ -613,6 +643,7 @@ TimelyMusic = {
     for i = 1, #self.Tracks do
       local t = self.Tracks[i]
       if t ~= track then
+        self.ActiveTrack = i
         t.TweenVolumeGoal = 0
         t.TweenVolumeStart = t.InternalVolume
         t.TweenVolumeBegin = CurTime()
@@ -764,7 +795,7 @@ TimelyMusic = {
       self.Tracks[i]:Update()
     end
 
-    /*
+    --[[
       if self.current_track then
         local vol = GetConVar("cl_tim_volume"):GetFloat()
         self.current_track:ChangeVolume( vol, 0 )
@@ -775,13 +806,15 @@ TimelyMusic = {
           print("timelymusic: stopped the ambient track, fade away")
         end
       end
-    */
+    --]]
 
     if not GetConVar("cl_tim_enabled"):GetBool() then return end
 
     self.State = table.Copy(self.PreviousState or {
+      in_combat = false,
       combat_start_time = 0,
       combat_tags = {},
+      ttt_round = GetRoundState and GetRoundState() or nil,
     })
 
     -- TASK: determine the new time and weather
@@ -808,6 +841,11 @@ TimelyMusic = {
     end
     if self.PreviousState ~= nil and self.State.time_hours_str ~= self.PreviousState.time_hours_str then
       self:SendEvent("hour_changed", self.State)
+    end
+    local at = self:GetActiveTrack()
+    if GetConVar("cl_tim_feature_no_loop"):GetBool() and at and CurTime() > (at.GoalStart + at.GoalDuration) then
+      print("we looped", CurTime(), at.GoalStart, at.GoalDuration, at.FileName)
+      self:SendEvent("no_loop", self.State)
     end
 
     if self.BattleCheckTime < SysTime() then
@@ -858,7 +896,7 @@ TimelyMusic = {
         print(unpack(printo))
       end
 
-      if tagged_any then
+      if tagged_any or GetRoundState and GetRoundState() == ROUND_ACTIVE then
         self.State.in_combat = true
         self.State.combat_start_time = SysTime()
       end
@@ -878,7 +916,7 @@ TimelyMusic = {
 
 
     self.PreviousState = self.State
-    /*
+    --[[
       if ( TimelyMusic.current_track and TimelyMusic.current_track:IsPlaying() == false ) then
         TimelyMusic.current_track:Play()
         TimelyMusic.current_track:SetSoundLevel( 0 )
@@ -887,7 +925,7 @@ TimelyMusic = {
           print("timelymusic: started playing current ambient track")
         end
       end
-    */
+    --]]
   end,
 
   TrackClass = {
@@ -917,7 +955,7 @@ TimelyMusic = {
     end,
 
     Update = function(self)
-      if self.Sound then
+      if IsValid(self.Sound) then
         if self.TweenVolumeBegin < CurTime() then
           self.InternalVolume = Lerp((CurTime() - self.TweenVolumeBegin) / self.TweenVolumeDuration, self.TweenVolumeStart, self.TweenVolumeGoal)
         end
@@ -925,9 +963,7 @@ TimelyMusic = {
       end
 
       if self.DeleteAfter ~= nil and self.DeleteAfter < CurTime() then
-        if self.Sound then
-          self.Sound:Stop()
-        end
+        self:Stop()
         table.RemoveByValue(TimelyMusic.Tracks, self)
       end
     end,
@@ -956,14 +992,27 @@ TimelyMusic = {
       return nil
     end,
 
+    Stop = function(self)
+      if IsValid(self.Sound) then
+        self.Sound:Stop()
+      end
+    end,
+
     Play = function(self, fadetime)
-      self.Sound:Play()
-      -- self.Sound:SetPan(0)
-      if (fadetime or 0) >= 0 then
-        self.TweenVolumeGoal = 1
-        self.TweenVolumeStart = 0
-        self.TweenVolumeBegin = CurTime()
-        self.TweenVolumeDuration = fadetime
+      if IsValid(self.Sound) then
+        self.Sound:Play()
+        self.GoalStart = CurTime()
+        self.GoalDuration = self.Sound:GetLength()
+        -- print("starting playback", CurTime(), self.GoalStart, self.GoalDuration, self.FileName)
+        -- self.Sound:SetPan(0)
+        if (fadetime or 0) >= 0 then
+          self.TweenVolumeGoal = 1
+          self.TweenVolumeStart = 0
+          self.TweenVolumeBegin = CurTime()
+          self.TweenVolumeDuration = fadetime
+        end
+      -- else
+      --   print("we tried to play something that was invalid?")
       end
     end,
   },
@@ -988,13 +1037,13 @@ TimelyMusic = {
 if StormFox2 and StormFox2.Time and StormFox2.Time.GetSpeed then
   TimelyMusic.GetCrossFadeDuration = function()
     return (StormFox2.Time.GetSpeed_RAW and StormFox2.Time.GetSpeed_RAW() or (StormFox2.Time.GetSpeed() / 60)) * GetConVar("cl_tim_crossfade_time"):GetFloat()
-    /*
+    --[[
     if StormFox2.Version <= 2.31 then
       return (StormFox2.Time.GetSpeed() / 60) * GetConVar("cl_tim_crossfade_time"):GetFloat()
     else
       return StormFox2.Time.GetSpeed() * GetConVar("cl_tim_crossfade_time"):GetFloat()
     end
-    */
+    --]]
   end
 end
 
@@ -1040,11 +1089,12 @@ hook.Add( "Think", "TimelyMusic_Think", function()
   TimelyMusic:Think()
 end)
 
-local function initTimelyMusic()
-  print("Initialized!")
-end
 local function reloadTimelyMusic()
-  print("Reloaded!")
+  if not is_reload then
+    print("Initialized!")
+  else
+    print("Reloaded!")
+  end
   RunConsoleCommand("stopsound")
   local files = file.Find( "timely_music/modules/*.lua", "lsv" )
   for _, mod in ipairs(files) do
@@ -1057,16 +1107,14 @@ local function reloadTimelyMusic()
 end
 
 concommand.Add("timelymusic_reload", reloadTimelyMusic, nil, language.GetPhrase("timelymusic.cl_tim_reload_timelymusic"))
-concommand.Add("timelymusic_init", function()
-  initTimelyMusic()
-  reloadTimelyMusic()
+concommand.Add("timelymusic_run_event", function(_, cmd, args, argStr)
+  TimelyMusic:SendEvent(cmd or "unknown_event", TimelyMusic.State)
 end)
 
 -- hook.Add( "InitPostEntity", "TimelyMusic_InitPostEntity", function() print("we are born") end )
 
 -- @INIT/RELOAD
 if not is_reload then
-  initTimelyMusic()
   reloadTimelyMusic()
 elseif is_reload then
   reloadTimelyMusic()
@@ -1094,4 +1142,31 @@ else
     TimelyMusic:SendEvent("initpostentity", TimelyMusic.State)
     hook.Remove("InitPostEntity", "TimelyMusic_PostLoad")
   end )
+end
+
+if engine.ActiveGamemode():lower() == "terrortown" then
+  local round_change = function(round_type)
+    local state = TimelyMusic.State
+    state.ttt_round = round_type
+
+    local event = "ttt_round_wait"
+    if state.ttt_round == ROUND_PREP then
+      state.in_combat = false
+      event = "ttt_round_prepare"
+    elseif state.ttt_round == ROUND_ACTIVE then
+      state.in_combat = true
+      event = "ttt_round_begin"
+    elseif state.ttt_round == ROUND_POST then
+      state.in_combat = false
+      event = "ttt_round_end"
+    end
+    print("round state event:", event, round_type)
+    TimelyMusic:SendEvent(event, state)
+  end
+  hook.Remove("TTTPrepareRound", "TimelyMusic_TTTPrepareRound")
+  hook.Add("TTTPrepareRound", "TimelyMusic_TTTPrepareRound", function() round_change(ROUND_PREP) end)
+  hook.Remove("TTTBeginRound", "TimelyMusic_TTTBeginRound")
+  hook.Add("TTTBeginRound", "TimelyMusic_TTTBeginRound", function() round_change(ROUND_ACTIVE) end)
+  hook.Remove("TTTEndRound", "TimelyMusic_TTTEndRound")
+  hook.Add("TTTEndRound", "TimelyMusic_TTTEndRound", function() round_change(ROUND_POST) end)
 end

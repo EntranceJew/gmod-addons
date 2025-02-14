@@ -22,18 +22,6 @@
             }
           },
           {
-            "id": "7b01e3ecf5490930",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "dataloom",
-              "state": {
-                "file": "DB.loom"
-              },
-              "pinned": true
-            }
-          },
-          {
             "id": "a139903568b2c6d6",
             "type": "leaf",
             "state": {
@@ -97,16 +85,78 @@
             "id": "c14b304a66079133",
             "type": "leaf",
             "state": {
+              "type": "big-calendar",
+              "state": {}
+            }
+          },
+          {
+            "id": "7e3306ac957449e4",
+            "type": "leaf",
+            "state": {
+              "type": "kanban",
+              "state": {
+                "file": "Untitled Kanban.md"
+              }
+            }
+          },
+          {
+            "id": "dd4c5bb87aa9b43e",
+            "type": "leaf",
+            "state": {
               "type": "markdown",
               "state": {
-                "file": "Scratch.md",
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "9346068a288d9e51",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "088c71f064fb820e",
+            "type": "leaf",
+            "state": {
+              "type": "dataloom",
+              "state": {
+                "file": "DB.loom"
+              }
+            }
+          },
+          {
+            "id": "590f4058bb41b46e",
+            "type": "leaf",
+            "state": {
+              "type": "dataloom",
+              "state": {
+                "file": "TTT2 Equipment Fixup.loom"
+              }
+            }
+          },
+          {
+            "id": "801d1d2049e99c79",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Docs To Write.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 12
       }
     ],
     "direction": "vertical"
@@ -135,7 +185,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "random",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -151,9 +201,17 @@
               "type": "bookmarks",
               "state": {}
             }
+          },
+          {
+            "id": "33b8ef29b3736c69",
+            "type": "leaf",
+            "state": {
+              "type": "mk-path-view",
+              "state": {}
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -173,7 +231,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Scratch.md",
+                "file": "Docs To Write.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -190,7 +248,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Scratch.md",
+                "file": "Docs To Write.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -213,7 +271,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Scratch.md"
+                "file": "Docs To Write.md"
               }
             }
           }
@@ -232,19 +290,33 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
+      "big-calendar:Big Calendar": false,
       "notion-like-tables:Create loom": false
     }
   },
-  "active": "c14b304a66079133",
+  "active": "801d1d2049e99c79",
   "lastOpenFiles": [
     "TTT2 Ideas.md",
-    "Kitbashes/Round Alert.md",
     "T9.md",
-    "Scratch.md",
-    "TTT2] Door Locker [WEAPON.md",
-    "Resources.md",
-    "Kitbashes/TTT2 Body Decomp.md",
+    "TTT2 Equipment Fixup.loom",
+    "Checklists/Map Checklist.md",
+    "Checklists",
     "DB.loom",
+    "Docs To Write.md",
+    "Untitled.md",
+    "Spaces/Home/Untitled.md",
+    "Spaces/Home",
+    "Spaces",
+    "Templates",
+    "Untitled Kanban.md",
+    "hn/Untitled.canvas",
+    "hn",
+    "shit fucker.md",
+    "Resources.md",
+    "Scratch.md",
+    "Kitbashes/Round Alert.md",
+    "TTT2] Door Locker [WEAPON.md",
+    "Kitbashes/TTT2 Body Decomp.md",
     "Kitbashes/Breakable Props.md",
     "Kitbashes/TTT2 Blood API.md",
     "Kitbashes",
@@ -258,13 +330,6 @@
     "Sounds.md",
     "PatchedMaps.md",
     "Maps.md",
-    "Mechanical.md",
-    "Fixes Tweaks.md",
-    "DevOnly.md",
-    "Equipment.md",
-    "Features.md",
-    "Collision Destruction.md",
-    "Blood Corpses.md",
     "Collision"
   ]
 }
